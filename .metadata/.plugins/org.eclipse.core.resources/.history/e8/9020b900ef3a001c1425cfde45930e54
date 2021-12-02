@@ -1,0 +1,16 @@
+package ch01.ex;
+
+import java.util.*;
+
+public class Ex01 {
+	public static void main(String[] args) {
+		int input1;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("정수를 입려가세요===>");
+		input1 = sc.nextInt();
+		int input2 = 20;
+		System.out.printf("10진수 ===> %d %d \n", input1,input2);
+		System.out.printf("8진수 ===> %o\n", input1);
+		System.out.printf("16진수 ===> %x\n", input2);
+	}
+}

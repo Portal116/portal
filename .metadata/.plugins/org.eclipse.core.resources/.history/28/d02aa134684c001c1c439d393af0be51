@@ -1,0 +1,32 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+public class Frame1 {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+//        JPanel mPanel = MainPanel.getPanel();
+
+//        frame.getContentPane().add(mPanel);
+        frame.getContentPane().setLayout(null);
+
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, 584, 361);
+        frame.getContentPane().add(panel);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(600, 400));
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);// 가운데에서 출력
+        frame.setVisible(true);
+
+    }
+}

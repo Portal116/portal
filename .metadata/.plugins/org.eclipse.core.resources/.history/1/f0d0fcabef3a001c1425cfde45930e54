@@ -1,0 +1,13 @@
+package ch01.ex;
+
+import java.util.*;
+
+public class Ex01 {
+	public static void main(String[] args) {
+		int input1;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("실수를 입려가세요 ===> ");
+		double pi = sc.nextDouble();
+		System.out.printf("실수형 ===> %.1f\n", pi);;
+	}
+}

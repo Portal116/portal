@@ -1,0 +1,40 @@
+package Order;
+
+public class OrderDTO {
+	int orderNo;
+	String ID;
+	int productNo;
+	int orderAmount;
+	String orderDate;
+	
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public int getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+	public int getOrderAmount() {
+		return orderAmount;
+	}
+	public void setOrderAmount(int orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}	
+}

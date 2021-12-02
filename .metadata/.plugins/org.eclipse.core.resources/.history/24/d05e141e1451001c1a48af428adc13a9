@@ -1,0 +1,164 @@
+package Project;
+
+import java.awt.EventQueue;
+import java.sql.Connection;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableRowSorter;
+
+public class OrderPanel extends JFrame {
+	private JPanel contentPane;
+	private static JPanel order = null;
+	private static Connection conn = DBConnect.getConnection();
+	private static JTable tableMain = null;
+	private JTextField textOrderNum;
+	private JTextField textID;
+	private JTextField textOrderAmount;
+	private JTextField textOrderDate;
+	private JTextField textProductNum;
+	private JTextField textSum;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrderPanel frame = new OrderPanel();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public OrderPanel() {
+		getPanel();
+//		order = new JPanel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 800);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);		
+				
+		order.setBounds(0, 121, 1184, 640);
+		contentPane.add(order);
+		order.setLayout(null);
+					
+		JScrollPane scrollPane = new JScrollPane();
+		
+//		tableMain = new JTable();		
+		tableMain.setAutoCreateRowSorter(true);		
+		TableRowSorter tablesorter = new TableRowSorter(tableMain.getModel());		
+		tableMain.setRowSorter(tablesorter);
+		
+		scrollPane.setViewportView(tableMain);
+		scrollPane.setBounds(12, 100, 1160, 489);
+		order.add(scrollPane);
+		
+		JLabel lblSum = new JLabel("\uB9E4\uCD9C \uD569\uACC4");
+		lblSum.setBounds(882, 599, 57, 30);
+		order.add(lblSum);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.setBounds(12, 600, 82, 30);
+		order.add(btnReset);
+		
+		textSum = new JTextField();
+		textSum.setColumns(10);
+		textSum.setBounds(951, 599, 221, 30);
+		order.add(textSum);
+		
+		JPanel insertPanel = new JPanel();
+		insertPanel.setBounds(0, 0, 1184, 90);
+		order.add(insertPanel);
+		insertPanel.setLayout(null);
+		
+		JLabel lblOrderNum = new JLabel("\uC8FC\uBB38 \uBC88\uD638");
+		lblOrderNum.setBounds(12, 12, 57, 30);
+		insertPanel.add(lblOrderNum);
+		
+		JLabel lblOrderAmount = new JLabel("\uC218\uB7C9");
+		lblOrderAmount.setBounds(12, 52, 57, 30);
+		insertPanel.add(lblOrderAmount);
+		
+		textOrderAmount = new JTextField();
+		textOrderAmount.setBounds(81, 52, 142, 30);
+		insertPanel.add(textOrderAmount);
+		textOrderAmount.setColumns(10);
+		
+		textOrderNum = new JTextField();
+		textOrderNum.setBounds(81, 11, 142, 30);
+		insertPanel.add(textOrderNum);
+		textOrderNum.setColumns(10);
+		
+		JLabel lblID = new JLabel("ID");
+		lblID.setBounds(269, 12, 57, 30);
+		insertPanel.add(lblID);
+		
+		JLabel lblOrderDate = new JLabel("\uD310\uB9E4 \uB0A0\uC9DC");
+		lblOrderDate.setBounds(269, 52, 57, 30);
+		insertPanel.add(lblOrderDate);
+		
+		textOrderDate = new JTextField();
+		textOrderDate.setBounds(338, 52, 142, 30);
+		insertPanel.add(textOrderDate);
+		textOrderDate.setColumns(10);
+		
+		textID = new JTextField();
+		textID.setBounds(338, 12, 142, 30);
+		insertPanel.add(textID);
+		textID.setColumns(10);
+		
+		JLabel lblProductNum = new JLabel("\uC0C1\uD488 \uBC88\uD638");
+		lblProductNum.setBounds(526, 10, 57, 30);
+		insertPanel.add(lblProductNum);
+		
+		textProductNum = new JTextField();
+		textProductNum.setBounds(595, 11, 142, 30);
+		insertPanel.add(textProductNum);
+		textProductNum.setColumns(10);
+		
+		JButton btnSearch = new JButton("\uAC80\uC0C9");
+		btnSearch.setBounds(906, 11, 127, 30);
+		insertPanel.add(btnSearch);
+		
+		JButton btnUpdate = new JButton("\uC218\uC815");
+		btnUpdate.setBounds(1047, 11, 125, 30);
+		insertPanel.add(btnUpdate);
+		
+		JButton btnDelete = new JButton("\uC0AD\uC81C");
+		btnDelete.setBounds(1045, 52, 127, 30);
+		insertPanel.add(btnDelete);
+		
+		JButton btnSave = new JButton("\uC800\uC7A5");
+		btnSave.setBounds(906, 52, 127, 30);
+		insertPanel.add(btnSave);
+	}
+
+	public static JPanel getPanel() {
+		// TODO Auto-generated method stub
+		if(order == null)
+			order = new JPanel();
+		return order;
+	}
+	private static JTable getTable() {
+		if(tableMain == null)
+			tableMain = new JTable();
+		return tableMain;
+	}
+	
+}

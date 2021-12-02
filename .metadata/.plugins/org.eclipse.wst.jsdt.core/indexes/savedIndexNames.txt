@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\portal\내 드라이브\멀티캠퍼스\KDT 자료\java study\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1589854881.index
+3574694354.index
+3297149383.index
+710689507.index
+3336714437.index
+4183738396.index

@@ -1,0 +1,15 @@
+package Order;
+
+enum Season{
+	봄, 여름, 가을, 겨울;
+
+	void valueOf(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+public class Test {
+	public static void main(String[] args) {
+		System.out.println(Season.valueOf(1));
+	}
+}

@@ -1,0 +1,12 @@
+package sec02.examp08_float_double;
+
+public class FloatDoubleExample {
+	public static void main(String[] args) {
+		double var1 = 3.14;
+		//float var2 = 3.14;
+		float var3 = 3.14f;
+		
+		double var4 = 0.1234567890123456789;
+		float var5 = 0.1234567890123456789f;
+	}
+}

@@ -1,0 +1,266 @@
+package Project;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
+import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.List;
+import java.awt.Panel;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+import Project.OrderPanel.OrderDTO;
+
+
+class OrderDAO {
+
+	// 주문정보 저장
+	public int insert(String ID, String productNo, String orderAmount, String orderDate) {
+		PreparedStatement pstmt = null;
+		int n = 0;
+
+		try {
+			String sql = "INSERT INTO order(ID, productNo, orderAmount, orderDate)" + " VALUES(?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, ID);
+			pstmt.setInt(2, Integer.parseInt(productNo));
+			pstmt.setInt(3, Integer.parseInt(orderAmount));
+			pstmt.setString(4, orderDate);
+			n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return n;
+	} // end 주문정보 저장
+
+	// 주문정보 수정
+	public int update(String orderNo, String ID, String productNo, String orderAmount, String orderDate) {
+		PreparedStatement pstmt = null;
+		int n = 0;
+
+		try {
+			String sql = "UPDATE order SET ID=?, productNo=?, " + " orderAmount=?, orderDate=? WHERE orderNo = ?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(orderNo));
+			pstmt.setString(2, ID);
+			pstmt.setInt(3, Integer.parseInt(productNo));
+			pstmt.setInt(4, Integer.parseInt(orderAmount));
+			pstmt.setString(5, orderDate);
+			n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return n;
+	} // end 주문정보 수정
+
+	// 주문정보 조회에 사용할 name 존재 여부 체크
+	public boolean isExist(String orderNo) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM order WHERE orderNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(orderNo));
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	// 주문정보 조회
+	public OrderDTO search(String orderNo, String ID, String productNo, String orderAmount, String orderDate) {
+		OrderDTO dto = new OrderDTO();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM member WHERE ";
+
+			if (!orderNo.equals(""))
+				sql = sql + "orderNo = ?,";
+			if (!ID.equals(""))
+				sql = sql + "ID = ?,";
+			if (!productNo.equals(""))
+				sql = sql + "productNo = ?,";
+			if (!orderAmount.equals(""))
+				sql = sql + "orderAmount = ?,";
+			if (!orderDate.equals(""))
+				sql = sql + "orderDate = ?,";
+			sql = sql.substring(0, sql.length() - 1);
+
+			pstmt = con.prepareStatement(sql);
+			int idx = 0;
+			if (!orderNo.equals(""))
+				pstmt.setInt(++idx, Integer.parseInt(orderNo));
+			if (!ID.equals(""))
+				pstmt.setString(++idx, ID);
+			if (!productNo.equals(""))
+				pstmt.setInt(++idx, Integer.parseInt(productNo));
+			if (!orderAmount.equals(""))
+				pstmt.setInt(++idx, Integer.parseInt(orderAmount));
+			if (!orderDate.equals(""))
+				pstmt.setString(++idx, orderDate);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				dto.setOrderNo(rs.getInt("orderNo"));
+				dto.setID(rs.getString("ID"));
+				dto.setProductNo(rs.getInt("productNo"));
+				dto.setOrderAmount(rs.getInt("orderAmount"));
+				dto.setOrderDate(rs.getString("orderDate"));
+				dto.setTotalPrice(rs.getInt("totalPrice"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	} // end 주문 정보 조회
+}
+
+		
+//		list 아이템 클릭하면 회원정보 입력 필드값 채우기
+		list.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent e){
+				String str = list.getSelectedItem();
+				StringTokenizer st = new StringTokenizer(str);
+				tfName.setText(st.nextToken());
+				tfAge.setText(st.nextToken());
+				tfWeight.setText(st.nextToken());
+				tfHeight.setText(st.nextToken());
+				
+				String sex = st.nextToken();
+				if(sex.equals("여")) {
+					chFemale.setState(true);
+				} else {
+					chMale.setState(true);
+				}
+			}
+		});
+		
+		 // 회원정보 데이터 수정 하기
+		 btnUpdate.addActionListener(new ActionListener(){
+			 public void actionPerformed(ActionEvent e){
+			 String name = tfName.getText();
+			 String age = tfAge.getText();
+			 String weight = tfWeight.getText();
+			 String height = tfHeight.getText();
+			 String sex = "남";
+			 if(chFemale.getState())
+				 sex = "여";
+			 
+			 OrderDAO dao = new OrderDAO();
+			 int n = dao.update(name,age,height,weight,sex);
+			 lblStatus.setText(n + "개의 레코드가 수정되었습니다.");
+			 
+			 displayAll();
+			 }
+		 });
+		 
+		 // 회원정보 데이터 조회 하기
+		 btnSearch.addActionListener(new ActionListener(){
+			 public void actionPerformed(ActionEvent e){
+				 String name = tfName.getText();
+				 
+				 OrderDAO dao = new OrderDAO();
+				 OrderDTO dto = null;
+				 try{
+					 dto = dao.search(name);
+					 lblStatus.setText("\"" + name + "\"이 검색됐습니다.");
+				 } catch(RecordNotFoundException ae) {
+					 final Dialog dialog = new Dialog(frame, "경고");
+					 dialog.setLayout(new FlowLayout());
+					 dialog.setSize(250, 80);
+					 dialog.setTitle(ae.getMessage());
+					 Button btnOK = new Button("확 인");
+					 btnOK.addActionListener(new ActionListener() {
+					 @Override
+						 public void actionPerformed(ActionEvent e) {
+						 	dialog.dispose();
+						 }
+					 });
+					 dialog.add(btnOK);
+					 dialog.setLocation(frame.getLocation().x + frame.getSize().width/2 - dialog.getSize().width/2,
+					 frame.getLocation().y + frame.getSize().height/2 - dialog.getSize().height/2);
+					 dialog.setVisible(true);
+					 lblStatus.setText("");
+					 return;
+				 } //end try~catch
+				 
+				 tfName.setText(dto.getName());
+				 tfAge.setText(Integer.toString(dto.getAge()));
+				 tfHeight.setText(Integer.toString(dto.getHeight()));
+				 tfWeight.setText(Integer.toString(dto.getWeight()));
+				 String sex = Character.toString(dto.getSex());
+				 if(sex.equals("여")){
+					 chFemale.setState(true);
+				 } else {
+					 chMale.setState(true);
+				 }
+			 }
+		 });
+
+		 // 회원정보 입력 필드 지우기
+		 btnReset.addActionListener(new ActionListener(){
+			 public void actionPerformed(ActionEvent e){
+				 tfName.setText("");
+				 tfAge.setText("");
+				 tfHeight.setText("");
+				 tfWeight.setText("");
+				 chGroup.setSelectedCheckbox(null);
+			 }
+		 });
+	}

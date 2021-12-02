@@ -1,0 +1,55 @@
+package Project;
+
+import java.awt.EventQueue;
+import java.sql.Connection;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+public class OrderPanel extends JFrame {
+	private JPanel contentPane;
+	private static JPanel order = null;
+	private static Connection conn = DBConnect.getConnection();
+	private JTextField textOrderNum;
+	private JTextField textID;
+	private JTextField textOrderAmount;
+	private JTextField textOrderDate;
+	private JTextField textProductNum;
+	private JTable tableMain;
+	private JTextField textSum;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrderPanel frame = new OrderPanel();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public OrderPanel() {
+		getPanel();
+	}
+
+	public static JPanel getPanel() {
+		// TODO Auto-generated method stub
+		if(order == null)
+			order = new JPanel();
+		return order;
+	}
+	private static void getTable() {
+		
+	}
+}

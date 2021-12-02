@@ -1,0 +1,29 @@
+package ch01;
+
+public class Var01 {
+	public static void main(String[] args) {
+		ChildVar cv = new ChildVar();
+		int $va; // 변수 앞에는 $ or _ 만 가능
+		$va = 50;
+		//intA = "문자열";
+		String sA;
+		sA = "문자열";
+		
+		ChildVar cs;
+		
+		byte ba;
+		ba = 90;
+		cs = new ChildVar();
+		
+		System.out.println($va);
+	}
+}
+
+class ChildVar{
+	int cc; //4byte
+	double dd; //8byte
+}
+
+class ChildVar02{
+	
+}

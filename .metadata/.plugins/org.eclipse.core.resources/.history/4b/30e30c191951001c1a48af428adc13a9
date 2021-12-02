@@ -1,0 +1,423 @@
+package Project;
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableRowSorter;
+
+public class OrderPanel extends JFrame {
+	private JPanel contentPane;
+	private static JPanel order = null;
+	private static Connection con = DBConnect.getConnection();
+	private static JTable tableMain = null;
+	private JTextField textOrderNo;
+	private JTextField textID;
+	private JTextField textOrderAmount;
+	private JTextField textOrderDate;
+	private JTextField textProductNo;
+	private JTextField textSum;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrderPanel frame = new OrderPanel();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public OrderPanel() {
+		getPanel();
+		order = new JPanel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 800);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);		
+				
+		order.setBounds(0, 121, 1184, 640);
+		contentPane.add(order);
+		order.setLayout(null);
+					
+		JScrollPane scrollPane = new JScrollPane();
+		getTable();
+		tableMain = new JTable();		
+		tableMain.setAutoCreateRowSorter(true);		
+		TableRowSorter tablesorter = new TableRowSorter(tableMain.getModel());		
+		tableMain.setRowSorter(tablesorter);
+		
+		scrollPane.setViewportView(tableMain);
+		scrollPane.setBounds(12, 100, 1160, 489);
+		order.add(scrollPane);
+		
+		
+		JPanel insertPanel = new JPanel();
+		insertPanel.setBounds(0, 0, 1184, 90);
+		order.add(insertPanel);
+		insertPanel.setLayout(null);
+		
+		JLabel lblOrderNo = new JLabel("\uC8FC\uBB38 \uBC88\uD638");
+		lblOrderNo.setBounds(12, 12, 57, 30);
+		insertPanel.add(lblOrderNo);
+		
+		JLabel lblOrderAmount = new JLabel("\uC218\uB7C9");
+		lblOrderAmount.setBounds(726, 12, 57, 30);
+		insertPanel.add(lblOrderAmount);
+		
+		JLabel lblID = new JLabel("ID");
+		lblID.setBounds(250, 12, 57, 30);
+		insertPanel.add(lblID);
+		
+		JLabel lblOrderDate = new JLabel("\uD310\uB9E4 \uB0A0\uC9DC");
+		lblOrderDate.setBounds(964, 12, 57, 30);
+		insertPanel.add(lblOrderDate);
+		
+		JLabel lblProductNo = new JLabel("\uC0C1\uD488 \uBC88\uD638");
+		lblProductNo.setBounds(488, 12, 57, 30);
+		insertPanel.add(lblProductNo);
+
+		textOrderNo = new JTextField();
+		textOrderNo.setBounds(81, 11, 139, 30);
+		insertPanel.add(textOrderNo);
+		textOrderNo.setColumns(10);
+
+		textID = new JTextField();
+		textID.setBounds(319, 12, 139, 30);
+		insertPanel.add(textID);
+		textID.setColumns(10);
+		
+		textProductNo = new JTextField();
+		textProductNo.setBounds(557, 13, 139, 30);
+		insertPanel.add(textProductNo);
+		textProductNo.setColumns(10);
+				
+		textOrderAmount = new JTextField();
+		textOrderAmount.setBounds(795, 12, 139, 30);
+		insertPanel.add(textOrderAmount);
+		textOrderAmount.setColumns(10);
+		
+		textOrderDate = new JTextField();
+		textOrderDate.setBounds(1033, 12, 139, 30);
+		insertPanel.add(textOrderDate);
+		textOrderDate.setColumns(10);
+		
+		
+		JButton btnSearch = new JButton("\uAC80\uC0C9");
+		btnSearch.setBounds(488, 52, 127, 30);
+		insertPanel.add(btnSearch);
+		
+		JButton btnUpdate = new JButton("\uC218\uC815");
+		btnUpdate.setBounds(629, 52, 125, 30);
+		insertPanel.add(btnUpdate);
+		
+		JButton btnDelete = new JButton("\uC0AD\uC81C");
+		btnDelete.setBounds(905, 52, 127, 30);
+		insertPanel.add(btnDelete);
+		
+		JButton btnSave = new JButton("\uC800\uC7A5");
+		btnSave.setBounds(766, 52, 127, 30);
+		insertPanel.add(btnSave);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.setBounds(1043, 52, 127, 30);
+		insertPanel.add(btnReset);
+		
+
+		JLabel lblSum = new JLabel("\uB9E4\uCD9C \uD569\uACC4");
+		lblSum.setBounds(862, 599, 57, 30);
+		order.add(lblSum);
+		
+		textSum = new JTextField();
+		textSum.setColumns(10);
+		textSum.setBounds(931, 599, 221, 30);
+		order.add(textSum);
+		
+		
+//		주문정보 저장하기
+		btnSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				String ID = textID.getText();
+				String productNo = textProductNo.getText();
+				String orderAmount = textOrderAmount.getText();
+				String orderDate = textOrderDate.getText();
+				
+				OrderDAO dao = new OrderDAO();
+				int n = dao.insert(ID, productNo, orderAmount, orderDate);
+			}
+		});
+	}
+
+	public static JPanel getPanel() {
+		// TODO Auto-generated method stub
+		if(order == null)
+			order = new JPanel();
+		return order;
+	}
+	private static JTable getTable() {
+		if(tableMain == null)
+			tableMain = new JTable();
+		return tableMain;
+	}
+}
+
+class OrderDAO {		
+	private static Connection con = DBConnect.getConnection();
+	// 주문정보 보기
+	public ArrayList<OrderDTO> select(){
+		ArrayList<OrderDTO> list = new ArrayList<OrderDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			String query = "SELECT * FROM order";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDTO dto = new OrderDTO();
+				dto.setOrderNo(rs.getInt("orderNo"));
+				dto.setID(rs.getString("ID"));
+				dto.setProductNo(rs.getInt("productNo"));
+				dto.setOrderAmount(rs.getInt("orderAmount"));
+				dto.setOrderDate(rs.getString("orderDate"));
+				list.add(dto);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	} // end 주문정보 보기
+	
+	// 주문정보 저장
+	public int insert(String ID, String productNo, String orderAmount, String orderDate){
+		PreparedStatement pstmt = null;
+		int n = 0;
+		
+		try{
+			String sql = "INSERT INTO order(ID, productNo, orderAmount, orderDate)" + " VALUES(?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, ID);
+			pstmt.setInt(2, Integer.parseInt(productNo));
+			pstmt.setInt(3, Integer.parseInt(orderAmount));
+			pstmt.setString(4, orderDate);
+			n = pstmt.executeUpdate();
+		} catch(Exception e) { 
+			e.printStackTrace();
+		} finally {
+			try{
+				if(pstmt != null) pstmt.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return n;
+	} // end 주문정보 저장
+	
+	// 주문정보 삭제
+	public int delete(String orderNo){
+		PreparedStatement pstmt = null;
+		int n = 0;		
+		try{
+			String sql = "DELETE FROM order WHERE orderNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(orderNo));
+			n = pstmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+		try{
+			if(pstmt != null) pstmt.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return n;
+	} // end 주문정보 삭제
+	
+	// 주문정보 수정
+	public int update(String orderNo, String ID, String productNo, String orderAmount, String orderDate){
+		PreparedStatement pstmt = null;
+		int n = 0;
+		
+		try{
+			String sql = "UPDATE order SET ID=?, productNo=?, " +
+			" orderAmount=?, orderDate=? WHERE orderNo = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(orderNo));
+			pstmt.setString(2, ID);
+			pstmt.setInt(3, Integer.parseInt(productNo));
+			pstmt.setInt(4, Integer.parseInt(orderAmount));
+			pstmt.setString(5, orderDate);
+			n = pstmt.executeUpdate();
+		}catch(Exception e){e.printStackTrace();
+		}finally{
+			try{
+			if(pstmt != null)pstmt.close();
+			}catch(Exception e){e.printStackTrace();}
+		}
+		return n;
+	} // end 주문정보 수정
+	
+	// 주문정보 조회에 사용할 name 존재 여부 체크
+	public boolean isExist(String orderNo){
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			String sql = "SELECT * FROM order WHERE orderNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(orderNo));
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				result = true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			}catch(Exception e){e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	// 주문정보 조회
+	public OrderDTO search(String orderNo) throws RecordNotFoundException{
+		if (!isExist(orderNo))
+			throw new RecordNotFoundException("\"" + orderNo + "\"는 없습니다.");
+		OrderDTO dto = new OrderDTO();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			String sql = "SELECT * FROM member WHERE orderNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(orderNo));
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				dto.setOrderNo(rs.getInt("orderNo"));
+				dto.setID(rs.getString("ID"));
+				dto.setProductNo(rs.getInt("productNo"));
+				dto.setOrderAmount(rs.getInt("orderAmount"));
+				dto.setOrderDate(rs.getString("orderDate"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+		try{
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			}catch(Exception e){e.printStackTrace();}
+		}
+		return dto;
+	} // end 주문 정보 조회
+	
+	// 주문정보 상품명으로 조회
+	public OrderDTO searchByProductNo(String productNo) throws RecordNotFoundException{
+		OrderDTO dto = new OrderDTO();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			String sql = "SELECT * FROM member WHERE productNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(productNo));
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				dto.setOrderNo(rs.getInt("orderNo"));
+				dto.setID(rs.getString("ID"));
+				dto.setProductNo(rs.getInt("productNo"));
+				dto.setOrderAmount(rs.getInt("orderAmount"));
+				dto.setOrderDate(rs.getString("orderDate"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+		try{
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			}catch(Exception e){e.printStackTrace();}
+		}
+		return dto;
+	} // end 주문 정보 상품명으로 조회
+}
+class OrderDTO {
+	int orderNo;
+	String ID;
+	int productNo;
+	int orderAmount;
+	String orderDate;
+	int totalPrice;
+	
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public int getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+	public int getOrderAmount() {
+		return orderAmount;
+	}
+	public void setOrderAmount(int orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}	
+}

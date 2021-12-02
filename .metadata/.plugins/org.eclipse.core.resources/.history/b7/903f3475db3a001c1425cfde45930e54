@@ -1,0 +1,18 @@
+package ch01;
+
+public class Var01 {
+	public static void main(String[] args) {
+		ChildVar cv = new ChildVar();
+		int intA;
+		intA = 50;
+		//intA = "¹®ÀÚ¿­";
+	}
+}
+
+class ChildVar{
+	
+}
+
+class ChildVar02{
+	
+}

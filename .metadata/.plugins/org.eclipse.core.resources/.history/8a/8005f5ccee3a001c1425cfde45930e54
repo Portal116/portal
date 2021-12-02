@@ -1,0 +1,10 @@
+package ch01.ex;
+
+import java.util.*;
+
+public class Ex01 {
+	public static void main(String[] args) {
+		int input1;
+		Scanner sc = new Scanner(System.in);
+	}
+}

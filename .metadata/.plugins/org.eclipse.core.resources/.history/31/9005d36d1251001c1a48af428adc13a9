@@ -1,0 +1,44 @@
+package Project;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+
+
+public class Frame {
+	private static JFrame frame;
+	private static JPanel homePanel = new HomePanel().getPanel();
+	private static JPanel menuPanel = new MenuPanel().getPanel();
+	private static JPanel memberPanel = new MemberPanel().getPanel();
+	private static JPanel orderPanel = new OrderPanel().getPanel();
+	private static JPanel productPanel = new ProductPanel().getPanel();
+
+
+	
+	public static void main(String[] args) {
+		
+		frame = new JFrame("title");
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setSize(1200,800);
+		frame.setLocationRelativeTo(null);
+		frame.getContentPane().setLayout(null);
+
+		frame.getContentPane().add(homePanel);
+		frame.getContentPane().add(menuPanel);
+		frame.getContentPane().add(memberPanel);
+		frame.getContentPane().add(orderPanel);
+		frame.getContentPane().add(productPanel);
+
+	}
+}
+
+abstract class AbsPanel {
+	private static JPanel panel = null;
+	public AbsPanel() {
+		getPanel();
+	}
+	abstract public JPanel getPanel();
+	abstract public JTable getTable();
+}

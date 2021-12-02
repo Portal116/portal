@@ -1,0 +1,8 @@
+package ch01.ex;
+
+public class Ex01 {
+	public static void main(String[] args) {
+		int input1;
+		Scanner sc = new Scanner(System.in);
+	}
+}

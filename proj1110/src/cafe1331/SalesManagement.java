@@ -1,0 +1,139 @@
+package cafe1331;
+
+import java.util.*;
+
+public class SalesManagement {
+	public static void main(String[] args) {
+		Print p = new Print();
+		p.menuOutput();
+	}
+}
+class Product{
+	String branchName;
+	String productName;
+	int price;
+	int sales;
+	
+	Product(int price){
+		this.price = price;
+	}
+	Product(){}
+}
+
+class Computer extends Product{
+	Computer(){
+		super(200);
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "컴퓨터";
+	}	
+}
+class Printer extends Product{
+	Printer(){
+		super(50);
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "프린터";
+	}	
+}
+class Print{
+	static int cnt = 0;
+	Scanner sc = new Scanner(System.in);
+	public void menuOutput() {
+		while(true) {
+			System.out.println("--------------------");
+			System.out.println("  판매량 관리 프로젝트");
+			System.out.println("--------------------");
+			System.out.println("1. 입력 2. 출력 3. 종료");
+			System.out.print("선택? ");
+			int choice = sc.nextInt();
+			if(choice == 1) {
+				branchChoice();
+			} else if(choice == 2) {
+				summary();
+			} else if(choice == 3)
+				System.exit(0);
+			else {
+				System.out.println("1~3중에 선택해주세요.");
+			}
+		}	
+	}
+	
+	String[] branchName = new String[100];
+	public void branchChoice() {
+		System.out.println("지사는?");
+		System.out.println("1. 서울지사 2. 경인지사 3. 강원지사 4. 제주지사");
+		System.out.print("선택은? ");
+		int choice = sc.nextInt();
+		switch(choice){
+			case 1:
+				branchName[cnt] = "서울지사";
+				break;
+			case 2:
+				branchName[cnt] = "경인지사";
+				break;
+			case 3:
+				branchName[cnt] = "강원지사";
+				break;
+			case 4:
+				branchName[cnt] = "제주지사";
+				break;
+			default:
+				System.out.println("1~4 중에 선택해주세요");
+				return;
+		}
+		inputData();
+	}
+	
+	String[] productName = new String[100];
+	int[] sell = new int[100];
+	int[] price = new int[100];
+	public void inputData() {
+		while(true) {
+			System.out.print("제품은? ");
+			productName[cnt] = sc.next();
+			if(productName[cnt] == "컴퓨터")
+				price[cnt] = 2000000;
+			else
+				price[cnt] = 500000;
+			
+			System.out.print(branchName[cnt] + " "
+					+ productName[cnt] +  " 판매량은? ");
+			sell[cnt] = sc.nextInt();
+			
+			cnt++;
+			
+			System.out.print("계속 입력하시겠습니까? ");
+			char ch = sc.next().charAt(0);
+			
+			if(ch != 'y' || ch != 'Y')
+				break;
+			branchName[cnt] = branchName[cnt-1];
+		}		
+	}
+	
+	public void summary() {
+		System.out.println("----------------------------------------");
+		System.out.println("\t    각 지사별 판매 현황");
+		System.out.println("----------------------------------------");
+		System.out.println("지사명\t제품명\t제품가격\t판매량\t매출현황");
+		
+		for(int i=0;i<cnt;i++) {
+			System.out.println(branchName[i] + "\t"
+					+ productName[i] + "\t" + price[i] + "\t"
+					+ sell[i] + "\t" + (sell[i] * price[i]));
+		}
+		System.out.println("----------------------------------------");
+		System.out.println();
+	}
+}
+
+// 지사 - 서울, 경인, 강원, 제주
+// 제품 - 컴퓨터, 프린터
+// 컴퓨터 - 200만
+// 프린터 - 50만
+// 가격, 판매량, 매출

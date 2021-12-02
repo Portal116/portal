@@ -1,0 +1,30 @@
+package ch05;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Q3 {
+	static int N;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		int[] a = new int[N];
+		
+		for(int i=0;i<N;i++) {
+			a[i] = sc.nextInt();
+		}
+		
+		Arrays.sort(a);
+		int result = gcdArray(a);
+		
+		System.out.println(result);
+	}
+	static int gcdArray(int[] a) {
+		for(int i=0;i<N;i++)
+	}
+	static int gcd(int x, int y) {
+		if(y == 0)
+			return x;
+		else return gcd(y, x%y);
+	}
+}

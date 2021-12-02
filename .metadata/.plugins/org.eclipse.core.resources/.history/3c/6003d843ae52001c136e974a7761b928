@@ -1,0 +1,422 @@
+package Project;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
+
+public class OrderPanel {
+	private static JPanel order = null;
+	private static Connection con = DBConnect.getConnection();
+	private static JTable tableMain = null;
+	private static JTextField textOrderNo;
+	private static JTextField textID;
+	private static JTextField textOrderAmount;
+	private static JTextField textOrderDate;
+	private static JTextField textProductNo;
+	private static JTextField textTotalPrice;
+	public static String[] col_name = { "ÁÖ¹® ¹øÈ£", "ID", "»óÇ° ¹øÈ£", "¼ö·®", "ÆÇ¸Å ³¯Â¥", "ÆÇ¸Å °¡°Ý" };
+	public static DefaultTableModel model;
+	public static PreparedStatement pstmt = null;
+	public static ResultSet rs = null;
+	private static JTextField textSum;
+	private static List<Integer> selectRows = new ArrayList<>();
+
+	public OrderPanel() {
+		getPanel();
+	}
+
+	public static JPanel getPanel() {
+		// TODO Auto-generated method stub
+		if (order == null) {
+			order = new JPanel();
+
+			order.setBounds(0, 121, 1184, 640);
+
+			model = new DefaultTableModel(null, col_name) {
+				public Class<?> getColumnClass(int columnIndex) {
+					if (columnIndex == 0 || columnIndex == 2 || columnIndex == 3 || columnIndex == 5)
+						return Integer.class;
+					else
+						return String.class;
+				}
+			};
+			tableMain = new JTable(model);
+			resizeColumnWidth(tableMain);
+			tableMain.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+			centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+			tableMain.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+			tableMain.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+			tableMain.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+			tableMain.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+			tableMain.getColumnModel().getColumn(5).setCellRenderer(new RightNumberRenderer());
+
+//			¿©·¯°³ ¼±ÅÃÇØ¼­ ÃÑ ÆÇ¸Å¾× Ãâ·Â ¿ëµµ
+			tableMain.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					int temp = tableMain.getSelectedRow();
+					selectRows.clear();
+					selectRows.addAll(0,
+							Arrays.asList(Arrays.stream(tableMain.getSelectedRows()).boxed().toArray(Integer[]::new)));
+					int sum = 0;
+					for (Integer i : selectRows){
+						sum += ((int) model.getValueAt(i, 5));
+					}
+					textSum.setText(Integer.toString(sum));
+				}
+			});
+
+			tableMain.addMouseListener(new MouseAdapter() {
+//				¿©·¯°³ ¼±ÅÃÇØ¼­ ÃÑ ÆÇ¸Å¾× Ãâ·Â ¿ëµµ
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					selectRows.clear();
+					selectRows.addAll(0,
+							Arrays.asList(Arrays.stream(tableMain.getSelectedRows()).boxed().toArray(Integer[]::new)));
+					int sum = 0;
+					for (Integer i : selectRows){
+						sum += ((int) model.getValueAt(i, 5));
+					}
+					textSum.setText(Integer.toString(sum));
+				}
+
+//				Å¬¸¯ÇÒ ¶§ text¿¡ ¹ÝÈ¯
+				@Override
+				public void mousePressed(MouseEvent e) {
+					int temp = tableMain.getSelectedRow();
+					textOrderNo.setText(Integer.toString((Integer) model.getValueAt(temp, 0)));
+					textID.setText((String) (model.getValueAt(temp, 1)));
+					textProductNo.setText(Integer.toString((Integer) model.getValueAt(temp, 2)));
+					textOrderAmount.setText(Integer.toString((Integer) model.getValueAt(temp, 3)));
+					textOrderDate.setText((String) model.getValueAt(temp, 4));
+					textTotalPrice.setText(Integer.toString((Integer) model.getValueAt(temp, 5)));
+				}
+			});
+
+			JScrollPane scrollPane = new JScrollPane(tableMain);
+			scrollPane.setBounds(12, 10, 1160, 536);
+			tableMain.setAutoCreateRowSorter(true);
+			TableRowSorter tablesorter = new TableRowSorter(tableMain.getModel());
+			order.setLayout(null);
+			tableMain.setRowSorter(tablesorter);
+
+			scrollPane.setViewportView(tableMain);
+			order.add(scrollPane);
+
+			JPanel insertPanel = new JPanel();
+			insertPanel.setBounds(0, 550, 1184, 90);
+			order.add(insertPanel);
+			insertPanel.setLayout(null);
+
+			JLabel lblOrderNo = new JLabel("\uC8FC\uBB38 \uBC88\uD638");
+			lblOrderNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblOrderNo.setBackground(Color.BLUE);
+			lblOrderNo.setBounds(12, 11, 57, 30);
+			insertPanel.add(lblOrderNo);
+
+			JLabel lblOrderAmount = new JLabel("    \uC218\uB7C9");
+			lblOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblOrderAmount.setBounds(598, 11, 57, 30);
+			insertPanel.add(lblOrderAmount);
+
+			JLabel lblID = new JLabel("      ID");
+			lblID.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblID.setBounds(208, 11, 57, 30);
+			insertPanel.add(lblID);
+
+			JLabel lblOrderDate = new JLabel("\uD310\uB9E4 \uB0A0\uC9DC");
+			lblOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblOrderDate.setBounds(795, 11, 57, 30);
+			insertPanel.add(lblOrderDate);
+
+			JLabel lblProductNo = new JLabel("\uC0C1\uD488 \uBC88\uD638");
+			lblProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblProductNo.setBounds(405, 11, 57, 30);
+			insertPanel.add(lblProductNo);
+
+			textOrderNo = new JTextField();
+			textOrderNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textOrderNo.setBounds(81, 11, 110, 30);
+			insertPanel.add(textOrderNo);
+			textOrderNo.setColumns(10);
+
+			textID = new JTextField();
+			textID.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textID.setBounds(283, 11, 110, 30);
+			insertPanel.add(textID);
+			textID.setColumns(10);
+
+			textProductNo = new JTextField();
+			textProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textProductNo.setBounds(474, 11, 110, 30);
+			insertPanel.add(textProductNo);
+			textProductNo.setColumns(10);
+
+			textOrderAmount = new JTextField();
+			textOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textOrderAmount.setBounds(667, 11, 110, 30);
+			insertPanel.add(textOrderAmount);
+			textOrderAmount.setColumns(10);
+
+			textOrderDate = new JTextField();
+			textOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textOrderDate.setBounds(864, 11, 110, 30);
+			insertPanel.add(textOrderDate);
+			textOrderDate.setColumns(10);
+
+			JButton btnSearch = new RoundedButton("\uAC80\uC0C9");
+			btnSearch.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			btnSearch.setBackground(Color.WHITE);
+			btnSearch.setBounds(490, 51, 127, 30);
+			insertPanel.add(btnSearch);
+
+			JButton btnUpdate = new RoundedButton("\uC218\uC815");
+			btnUpdate.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			btnUpdate.setBackground(Color.WHITE);
+			btnUpdate.setBounds(631, 51, 125, 30);
+			insertPanel.add(btnUpdate);
+
+			JButton btnDelete = new RoundedButton("\uC0AD\uC81C");
+			btnDelete.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			btnDelete.setBackground(Color.WHITE);
+			btnDelete.setBounds(907, 51, 127, 30);
+			insertPanel.add(btnDelete);
+
+			JButton btnSave = new RoundedButton("\uC800\uC7A5");
+			btnSave.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			btnSave.setBackground(Color.WHITE);
+			btnSave.setBounds(768, 51, 127, 30);
+			insertPanel.add(btnSave);
+
+			JButton btnReset = new RoundedButton("Reset");
+			btnReset.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			btnReset.setBackground(Color.WHITE);
+			btnReset.setBounds(1045, 51, 127, 30);
+			insertPanel.add(btnReset);
+
+			JLabel lblTotalPrice = new JLabel("\uD310\uB9E4 \uAE08\uC561");
+			lblTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblTotalPrice.setBackground(Color.WHITE);
+			lblTotalPrice.setBounds(994, 11, 57, 30);
+			insertPanel.add(lblTotalPrice);
+
+			textTotalPrice = new JTextField();
+			textTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textTotalPrice.setBounds(1062, 11, 110, 30);
+			insertPanel.add(textTotalPrice);
+			textTotalPrice.setColumns(10);
+
+			JLabel lblSum = new JLabel("\uCD1D \uD310\uB9E4\uC561");
+			lblSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			lblSum.setBackground(Color.BLUE);
+			lblSum.setBounds(12, 51, 57, 30);
+			insertPanel.add(lblSum);
+
+			textSum = new JTextField();
+			textSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+			textSum.setColumns(10);
+			textSum.setBounds(81, 51, 191, 30);
+			insertPanel.add(textSum);
+
+			getTable();
+
+//			ÁÖ¹®Á¤º¸ ÀúÀåÇÏ±â - ID, »óÇ°¹øÈ£, °³¼ö, ÁÖ¹®³¯Â¥·Î ÀÔ·Â / ÁÖ¹®¹øÈ£´Â AI, °¡°ÝÀº Æ®¸®°Å·Î ÀÚµ¿
+			btnSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String sql = "INSERT INTO ordertbl(ID, productNo, orderAmount, orderDate) VALUES(?, ?, ?, ?)";
+					try {
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, textID.getText());
+						pstmt.setInt(2, Integer.parseInt(textProductNo.getText()));
+						pstmt.setInt(3, Integer.parseInt(textOrderAmount.getText()));
+						String date = textOrderDate.getText();
+						java.sql.Date sDate = java.sql.Date.valueOf(date);
+						pstmt.setDate(4, sDate);
+						pstmt.executeUpdate();
+						model.setRowCount(0);
+						getTable();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+
+//			ÁÖ¹®Á¤º¸ »èÁ¦ÇÏ±â - ÁÖ¹®¹øÈ£·Î »èÁ¦
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String sql = "DELETE FROM ordertbl WHERE orderNo = ?";
+					try {
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, Integer.parseInt(textOrderNo.getText()));
+						pstmt.executeUpdate();
+						model.setRowCount(0);
+						getTable();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+//			ÁÖ¹®Á¤º¸ µ¥ÀÌÅÍ ¼öÁ¤ ÇÏ±â
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String sql = "UPDATE ordertbl SET ID=?, productNo=?, "
+							+ " orderAmount=?, orderDate=? WHERE orderNo = ?";
+					try {
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, textID.getText());
+						pstmt.setInt(2, Integer.parseInt(textProductNo.getText()));
+						pstmt.setInt(3, Integer.parseInt(textOrderAmount.getText()));
+						String date = textOrderDate.getText();
+						java.sql.Date sDate = java.sql.Date.valueOf(date);
+						pstmt.setDate(4, sDate);
+						pstmt.setInt(5, Integer.parseInt(textOrderNo.getText()));
+						pstmt.executeUpdate();
+						model.setRowCount(0);
+						getTable();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+
+//			ÁÖ¹®Á¤º¸
+			btnReset.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					textOrderNo.setText("");
+					textID.setText("");
+					textProductNo.setText("");
+					textOrderAmount.setText("");
+					textOrderDate.setText("");
+					textTotalPrice.setText("");
+					model.setRowCount(0);
+					getTable();
+				}
+			});
+
+			btnSearch.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						String sql = "SELECT * FROM ordertbl WHERE ";
+
+						if (!textOrderNo.getText().equals(""))
+							sql = sql + "orderNo = ? and ";
+						if (!textID.getText().equals(""))
+							sql = sql + "ID = ? and ";
+						if (!textProductNo.getText().equals(""))
+							sql = sql + "productNo = ? and ";
+						if (!textOrderAmount.getText().equals(""))
+							sql = sql + "orderAmount = ? and ";
+						if (!textOrderDate.getText().equals(""))
+							sql = sql + "orderDate = ? and ";
+						sql = sql.substring(0, sql.length() - 4);
+
+						pstmt = con.prepareStatement(sql);
+						int idx = 0;
+						if (!textOrderNo.getText().equals(""))
+							pstmt.setInt(++idx, Integer.parseInt(textOrderNo.getText()));
+						if (!textID.getText().equals(""))
+							pstmt.setString(++idx, textID.getText());
+						if (!textProductNo.getText().equals(""))
+							pstmt.setInt(++idx, Integer.parseInt(textProductNo.getText()));
+						if (!textOrderAmount.getText().equals(""))
+							pstmt.setString(++idx, textOrderAmount.getText());
+						if (!textOrderDate.getText().equals("")) {
+							String date = textOrderDate.getText();
+							java.sql.Date sDate = java.sql.Date.valueOf(date);
+							pstmt.setDate(++idx, sDate);
+						}
+						rs = pstmt.executeQuery();
+						model.setRowCount(0);
+						int sum = 0;
+						while (rs.next()) {
+							model.addRow(new Object[] { rs.getInt("orderNo"), rs.getString("ID"),
+									rs.getInt("productNo"), rs.getInt("orderAmount"), rs.getString("orderDate"),
+									rs.getInt("totalPrice") });
+							sum += rs.getInt("totalPrice");
+						}
+						textSum.setText(Integer.toString(sum));
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+		}
+		return order;
+	}
+
+	public static void getTable() {
+		model.setRowCount(0);
+		try {
+			String query = "SELECT * FROM ordertbl";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			int sum = 0;
+			while (rs.next()) {
+				model.addRow(new Object[] { rs.getInt("orderNo"), rs.getString("ID"), rs.getInt("productNo"),
+						rs.getInt("orderAmount"), rs.getString("orderDate"), rs.getInt("totalPrice") });
+				sum += rs.getInt("totalPrice");
+			}
+			textSum.setText(Integer.toString(sum));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void resizeColumnWidth(JTable table) {
+	      final TableColumnModel columnModel = table.getColumnModel();
+	      for (int column = 0; column < table.getColumnCount(); column++) {
+	         int width = 15; // Min width
+	         for (int row = 0; row < table.getRowCount(); row++) {
+	            TableCellRenderer renderer = table.getCellRenderer(row, column);
+	            Component comp = table.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width + 1, width);
+	         }
+	         if (width > 300)
+	            width = 300;
+	         columnModel.getColumn(column).setPreferredWidth(width);
+	      }
+	   }
+}
+
+class RightNumberRenderer extends DefaultTableCellRenderer {
+
+	   private final DecimalFormat formatter = new DecimalFormat("###,###,###,###");
+
+	   public final Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+	         boolean hasFocus, int row, int column) {
+	      if (value == null) {
+	         value = 0;
+	      }
+	      setHorizontalAlignment(JLabel.RIGHT);
+	      value = formatter.format((Number) value);
+	      final Component result = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+	      return result;
+	   }
+	}

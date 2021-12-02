@@ -1,0 +1,156 @@
+package Order;
+
+import java.awt.EventQueue;
+import java.awt.ScrollPane;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+public class GUI2 extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI2 frame = new GUI2();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public GUI2() {
+		setTitle("\uC8FC\uBB38");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 800);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 1184, 761);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JButton btnNewButton = new JButton("\uD68C\uC6D0");
+		btnNewButton.setBounds(330, 10, 206, 88);
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("HOME");
+		btnNewButton_1.setBounds(12, 10, 206, 88);
+		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("\uC0C1\uD488");
+		btnNewButton_2.setBounds(966, 10, 206, 88);
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("\uC8FC\uBB38");
+		btnNewButton_3.setBounds(648, 10, 206, 88);
+		panel.add(btnNewButton_3);
+		
+		JButton btnNewButton_1_1 = new JButton("\uC0AD\uC81C");
+		btnNewButton_1_1.setBounds(1088, 166, 82, 30);
+		panel.add(btnNewButton_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(81, 125, 142, 30);
+		panel.add(textField_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("\uC8FC\uBB38 \uBC88\uD638");
+		lblNewLabel_2.setBounds(12, 126, 57, 30);
+		panel.add(lblNewLabel_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(957, 721, 215, 30);
+		panel.add(textField_3);
+		
+		JLabel lblNewLabel_3 = new JLabel("\uD569\uACC4");
+		lblNewLabel_3.setBounds(909, 720, 30, 30);
+		panel.add(lblNewLabel_3);
+		
+		JButton btnNewButton_1_1_1 = new JButton("Reset");
+		btnNewButton_1_1_1.setBounds(12, 721, 82, 30);
+		panel.add(btnNewButton_1_1_1);
+		
+		JButton btnNewButton_1_1_2 = new JButton("\uC800\uC7A5");
+		btnNewButton_1_1_2.setBounds(996, 166, 82, 30);
+		panel.add(btnNewButton_1_1_2);
+		
+		JButton btnNewButton_1_1_3 = new JButton("\uC218\uC815");
+		btnNewButton_1_1_3.setBounds(1090, 125, 82, 30);
+		panel.add(btnNewButton_1_1_3);
+		
+		JButton btnNewButton_1_1_4 = new JButton("\uAC80\uC0C9");
+		btnNewButton_1_1_4.setBounds(996, 125, 82, 30);
+		panel.add(btnNewButton_1_1_4);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("ID");
+		lblNewLabel_2_1.setBounds(249, 126, 57, 30);
+		panel.add(lblNewLabel_2_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(318, 126, 142, 30);
+		panel.add(textField);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("\uC218\uB7C9");
+		lblNewLabel_2_2.setBounds(12, 166, 57, 30);
+		panel.add(lblNewLabel_2_2);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(81, 166, 142, 30);
+		panel.add(textField_1);
+		
+		JLabel lblNewLabel_2_3 = new JLabel("\uD310\uB9E4 \uB0A0\uC9DC");
+		lblNewLabel_2_3.setBounds(249, 166, 57, 30);
+		panel.add(lblNewLabel_2_3);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(318, 166, 142, 30);
+		panel.add(textField_4);
+		
+		JLabel lblNewLabel_2_4 = new JLabel("\uC0C1\uD488 \uBC88\uD638");
+		lblNewLabel_2_4.setBounds(486, 125, 57, 30);
+		panel.add(lblNewLabel_2_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(555, 126, 142, 30);
+		panel.add(textField_5);
+		
+		table = new JTable();
+		table.setBounds(12, 202, 1160, 513);
+		panel.add(table);
+		
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setBounds(12, 202, 1162, 513);
+		panel.add(scrollPane);
+	}
+}

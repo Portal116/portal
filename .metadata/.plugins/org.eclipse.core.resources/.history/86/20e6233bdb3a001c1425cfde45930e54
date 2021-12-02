@@ -1,0 +1,16 @@
+package ch01;
+
+public class Var01 {
+	public static void main(String[] args) {
+		ChildVar cv = new ChildVar();
+		int intA;
+	}
+}
+
+class ChildVar{
+	
+}
+
+class ChildVar02{
+	
+}

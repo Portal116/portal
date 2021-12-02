@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;shoppingMall/src/algorismProject2&apos;&#x0D;&#x0A;- Original project: &apos;algorithm&apos;&#x0D;&#x0A;- Destination element: &apos;shoppingMall/src/algorismProject2&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ch10.BinTree.java&#x0D;&#x0A;     ch10.BinTreeTester.java" description="Copy compilation units" destination="=shoppingMall/src&lt;algorismProject2" element1="/src&lt;ch10{BinTree.java" element2="/src&lt;ch10{BinTreeTester.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1638348336173" units="2" version="1.0"/>
+</session>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="login.jsp" method="get">
+        <fieldset>
+            <legend>회원가입</legend>
+            <table>
+                <tr>
+                    <td><label for="id">아이디(필수)</label></td>
+                    <td><input id="id" type="text" placeholder="아이디를 입력하세요" required="required"></td>
+                </tr>
+                <tr>
+                    <td><label for="pw">비밀번호(필수)</label></td>
+                    <td><input id="pw" type="password" placeholder="비밀번호를 입력하세요" required="required"></td>
+                </tr>
+                <tr>
+                    <td><label for="repw">비밀번호(필수)</label></td>
+                    <td><input id="pw" type="password" placeholder="비밀번호를 한 번 더 입력하세요" required="required"></td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td><label for="name">이름</label></td>
+                    <td><input id="name" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="gender">성별</label></td>
+                    <td><input id="gender" type="radio" name="radio_g" value="man">남자</td>
+                    <td><input id="gender" type="radio" name="radio_g" value="woman">여자</td>
+                </tr>
+                <tr>
+                    <td><label for="birth">생일</label></td>
+                    <td><input name="birth" type="date"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="email" name="email" size="35" placeholder="이메일을 입력하세요.">
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td colspan="2">
+                        <select>
+                            <option>+82</option>
+                            <option>+01</option>
+                            <option>+02</option>
+                        </select>
+                        <input type="tel" id="phone" size="23">
+                        <input type="button" id="sign" value="인증">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="text" id="certification" size="30" placeholder="인증번호">
+                        <input type="button" value="확인">
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="회원가입">
+                        <input type="reset" value="다시작성">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</body>
+</html>

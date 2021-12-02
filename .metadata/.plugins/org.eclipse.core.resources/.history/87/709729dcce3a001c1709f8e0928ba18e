@@ -1,0 +1,14 @@
+package ch01;
+
+public class Var_type {
+	public static void main(String[] args) {
+		// 주석문 - 실행X
+		/*
+		 실행 X
+		 */
+		int a=0;
+		System.out.println(a);
+		a += 500;
+		System.out.println(a);
+	}
+}
