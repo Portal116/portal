@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -187,18 +188,25 @@ public class OrderPanel {
 			infoPanel_1.add(textOrderDate);
 			textOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 			textOrderDate.setColumns(10);
-			JLabel lblProductNo = new JLabel("\uC0C1\uD488 \uBC88\uD638");
-			infoPanel_1.add(lblProductNo);
-			lblProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-			textProductNo = new JTextField();
-			infoPanel_1.add(textProductNo);
-			textProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-			textProductNo.setColumns(10);
 			JPanel infoPanel_2 = new JPanel();
 			infoPanel_2.setBackground(UIManager.getColor("Button.disabledShadow"));
 			infoPanel_2.setBounds(0, 40, 992, 40);
 			infoPanel.add(infoPanel_2);
 			infoPanel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			JLabel lblProductNo = new JLabel("\uC0C1\uD488 \uBC88\uD638");
+			infoPanel_2.add(lblProductNo);
+			lblProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textProductNo = new JTextField();
+			infoPanel_2.add(textProductNo);
+			textProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textProductNo.setColumns(10);
+			
+			JComboBox comboBoxProductNo = new JComboBox(new Object[]{});
+			comboBoxProductNo.setModel(new DefaultComboBoxModel(new String[] {"\uB2E8\uC77C", "\uD3EC\uD568", "\uC774\uC0C1", "\uC774\uD558"}));
+			comboBoxProductNo.setSelectedIndex(0);
+			comboBoxProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			comboBoxProductNo.setBackground(new Color(255, 255, 255));
+			infoPanel_2.add(comboBoxProductNo);
 			JLabel lblOrderAmount = new JLabel("\uC218\uB7C9");
 			infoPanel_2.add(lblOrderAmount);
 			lblOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
@@ -370,6 +378,7 @@ public class OrderPanel {
 				public void actionPerformed(ActionEvent e) {
 					searchOrder(textOrderNo.getText(), textID.getText(), textProductNo.getText(),
 							textOrderAmount.getText(), textOrderDate.getText(), textTotalPrice.getText(),
+							comboBoxProductNo.getSelectedIndex(),
 							comboBoxAmount.getSelectedIndex(), comboBoxTotal.getSelectedIndex());
 
 					textFieldSelectCnt.setText(Integer.toString(model.getRowCount()));
@@ -426,7 +435,7 @@ public class OrderPanel {
 	}
 
 	public static void searchOrder(String orderNo, String ID, String productNo, String orderAmount, String orderDate,
-			String totalPrice, int comboOrderAmount, int comboTotalPrice) {
+			String totalPrice, int comboProductNo, int comboOrderAmount, int comboTotalPrice) {
 		String sql = "SELECT * FROM ordertbl WHERE ";
 
 		if (!orderNo.equals("")) {
@@ -441,26 +450,56 @@ public class OrderPanel {
 			sql = sql + " and ";
 		}
 		if (!ID.equals("")) {
-			st = new StringTokenizer(ID, ",");
-			sql = sql + "(";
-			while (st.hasMoreTokens()) {
-				sql = sql + "ID like ? or ";
-				st.nextToken();
+			if(ID.toUpperCase().equals("ID")) {
+				sql = "select m.id, count(orderAmount) as countID, sum(totalPrice) as sumID from membertbl m left outer join ordertbl o on o.id = m.id group by id     ";
+			} else {
+				st = new StringTokenizer(ID, ",");
+				sql = sql + "(";
+				while (st.hasMoreTokens()) {
+					sql = sql + "ID like ? or ";
+					st.nextToken();
+				}
+				sql = sql.substring(0, sql.length() - 3);
+				sql = sql + ")";
+				sql = sql + " and ";
 			}
-			sql = sql.substring(0, sql.length() - 3);
-			sql = sql + ")";
-			sql = sql + " and ";
 		}
 		if (!productNo.equals("")) {
-			st = new StringTokenizer(productNo, ",");
-			sql = sql + "(";
-			while (st.hasMoreTokens()) {
-				sql = sql + "Cast(productNo as char(10)) like ? or ";
-				st.nextToken();
+			if(productNo.equals("¹øÈ£")) {
+				sql = "Select p.productNo, count(orderAmount) as countPN, sum(totalPrice) as sumPN from producttbl p left outer join ordertbl o on p.productNo = o.productNo group by productNo     ";				
+			} else {
+				st = new StringTokenizer(productNo, ",");
+				sql = sql + "(";
+				switch (comboProductNo) {
+				case (0):
+					while (st.hasMoreTokens()) {
+						sql = sql + "productNo = ? or ";
+						st.nextToken();
+					}
+					break;
+				case (1):
+					while (st.hasMoreTokens()) {
+						sql = sql + "Cast(productNo as char(10)) like ? or ";
+						st.nextToken();
+					}
+					break;
+				case (2):
+					while (st.hasMoreTokens()) {
+						sql = sql + "productNo >= ? or ";
+						st.nextToken();
+					}
+					break;
+				case (3):
+					while (st.hasMoreTokens()) {
+						sql = sql + "productNo <= ? or ";
+						st.nextToken();
+					}
+					break;
+				}
+				sql = sql.substring(0, sql.length() - 3);
+				sql = sql + ")";
+				sql = sql + " and ";				
 			}
-			sql = sql.substring(0, sql.length() - 3);
-			sql = sql + ")";
-			sql = sql + " and ";
 		}
 		if (!orderAmount.equals("")) {
 			st = new StringTokenizer(orderAmount, ",");
@@ -550,15 +589,28 @@ public class OrderPanel {
 				}
 			}
 			if (!ID.equals("")) {
-				st = new StringTokenizer(ID, ",");
-				while (st.hasMoreTokens()) {
-					pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
+				if(!ID.toUpperCase().equals("ID")) {
+					st = new StringTokenizer(ID, ",");
+					while (st.hasMoreTokens()) {
+						pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
+					}
 				}
 			}
 			if (!productNo.equals("")) {
-				st = new StringTokenizer(productNo, ",");
-				while (st.hasMoreTokens()) {
-					pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
+				if(!productNo.equals("¹øÈ£")) {
+					st = new StringTokenizer(productNo, ",");
+					switch (comboProductNo) {
+					case (1):
+						while (st.hasMoreTokens()) {
+							pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
+						}
+						break;
+					default:
+						while (st.hasMoreTokens()) {
+							pstmt.setInt(idx++, Integer.parseInt(st.nextToken().trim()));
+						}
+						break;
+					}
 				}
 			}
 			if (!orderAmount.equals("")) {
@@ -602,9 +654,17 @@ public class OrderPanel {
 			model.setRowCount(0);
 			int sum = 0;
 			while (rs.next()) {
-				model.addRow(new Object[] { rs.getInt("orderNo"), rs.getString("ID"), rs.getInt("productNo"),
-						rs.getInt("orderAmount"), rs.getString("orderDate"), rs.getInt("totalPrice") });
-				sum += rs.getInt("totalPrice");
+				if(productNo.equals("¹øÈ£")) {
+					model.addRow(new Object[] { null, null, rs.getInt("productNo"),
+							rs.getInt("countPN"), null, rs.getInt("sumPN")});
+				} else if(ID.toUpperCase().equals("ID")) {
+					model.addRow(new Object[] { null, rs.getString("ID"), null,
+							rs.getInt("countID"), null, rs.getInt("sumID")});				
+				} else {
+					model.addRow(new Object[] { rs.getInt("orderNo"), rs.getString("ID"), rs.getInt("productNo"),
+							rs.getInt("orderAmount"), rs.getString("orderDate"), rs.getInt("totalPrice") });
+					sum += rs.getInt("totalPrice");
+				}
 			}
 			String sumResult = formatter.format(sum);
 			textSum.setText(sumResult);
