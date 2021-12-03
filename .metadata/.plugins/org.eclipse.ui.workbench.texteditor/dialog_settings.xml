@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="StringToken"/>
+		<item key="selection" value="661"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="true"/>
 		<list key="findhistory">
+			<item value="661"/>
+			<item value="combobox"/>
+			<item value="textSum"/>
 			<item value="stringtoken"/>
 			<item value="st"/>
 			<item value="searchProduct"/>
@@ -20,9 +23,6 @@
 			<item value="binarySearch"/>
 			<item value="la4"/>
 			<item value="ab"/>
-			<item value="va"/>
-			<item value="^#R"/>
-			<item value="result"/>
 		</list>
 		<list key="replacehistory">
 			<item value="result"/>

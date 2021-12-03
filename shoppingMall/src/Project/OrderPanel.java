@@ -50,6 +50,9 @@ public class OrderPanel {
 	private static List<Integer> selectRows = new ArrayList<>();
 	private static StringTokenizer st;
 	private static DecimalFormat formatter = new DecimalFormat("###,###,###,###");
+	private static JTextField textLineSum;
+	private static JComboBox comboBoxTotalPrice;
+	private static JComboBox comboBoxOrderAmount;
 
 	public OrderPanel() {
 		getPanel();
@@ -92,7 +95,7 @@ public class OrderPanel {
 			tableMain.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 			tableMain.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 			tableMain.getColumnModel().getColumn(5).setCellRenderer(new RightNumberRenderer());
-			
+
 //			¿©·¯°³ ¼±ÅÃÇØ¼­ ÃÑ ÆÇ¸Å¾× Ãâ·Â ¿ëµµ
 			tableMain.addKeyListener(new KeyAdapter() {
 				@Override
@@ -107,6 +110,7 @@ public class OrderPanel {
 					}
 					String sumResult = formatter.format(sum);
 					textSum.setText(sumResult);
+					textLineSum.setText(Integer.toString(selectRows.size()));
 				}
 			});
 
@@ -123,6 +127,7 @@ public class OrderPanel {
 					}
 					String sumResult = formatter.format(sum);
 					textSum.setText(sumResult);
+					textLineSum.setText(Integer.toString(selectRows.size()));
 				}
 
 //				Å¬¸¯ÇÒ ¶§ text¿¡ ¹ÝÈ¯
@@ -139,169 +144,188 @@ public class OrderPanel {
 			});
 
 			JScrollPane scrollPane = new JScrollPane(tableMain);
-	         scrollPane.setBounds(12, 10, 1160, 516);
-	         scrollPane.getViewport().setBackground(Color.WHITE);
-	         tableMain.setAutoCreateRowSorter(true);
-	         TableRowSorter tablesorter = new TableRowSorter(tableMain.getModel());
-	         order.setLayout(null);
-	         tableMain.setRowSorter(tablesorter);
+			scrollPane.setBounds(12, 10, 1160, 516);
+			scrollPane.getViewport().setBackground(Color.WHITE);
+			tableMain.setAutoCreateRowSorter(true);
+			TableRowSorter tablesorter = new TableRowSorter(tableMain.getModel());
+			order.setLayout(null);
+			tableMain.setRowSorter(tablesorter);
 
-	         scrollPane.setViewportView(tableMain);
-	         order.add(scrollPane);
+			scrollPane.setViewportView(tableMain);
+			order.add(scrollPane);
 
-	         JPanel insertPanel = new JPanel();
-	         insertPanel.setBounds(12, 536, 991, 120);
-	         order.add(insertPanel);
-	         insertPanel.setLayout(null);
+			JPanel insertPanel = new JPanel();
+			insertPanel.setBounds(12, 536, 991, 120);
+			order.add(insertPanel);
+			insertPanel.setLayout(null);
 
-	         JPanel panel_1 = new JPanel();
-	         panel_1.setBackground(new Color(255, 255, 255));
-	         panel_1.setBounds(0, 0, 992, 120);
-	         insertPanel.add(panel_1);
-	         panel_1.setLayout(null);
+			JPanel insertPanel2 = new JPanel();
+			insertPanel2.setBackground(new Color(255, 255, 255));
+			insertPanel2.setBounds(0, 0, 992, 120);
+			insertPanel.add(insertPanel2);
+			insertPanel2.setLayout(null);
 
-	         JPanel panel_3 = new JPanel();
-	         panel_3.setBackground(new Color(255, 255, 255));
-	         panel_3.setBounds(0, 0, 992, 40);
-	         panel_1.add(panel_3);
-	         panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			JPanel insertPanelTop = new JPanel();
+			insertPanelTop.setBackground(new Color(255, 255, 255));
+			insertPanelTop.setBounds(0, 0, 992, 40);
+			insertPanel2.add(insertPanelTop);
+			insertPanelTop.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-	         JLabel lblOrderNo = new JLabel("\uC8FC\uBB38 \uBC88\uD638");
-	         panel_3.add(lblOrderNo);
-	         lblOrderNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         lblOrderNo.setBackground(Color.BLUE);
+			JLabel lblOrderNo = new JLabel("\uC8FC\uBB38 \uBC88\uD638");
+			insertPanelTop.add(lblOrderNo);
+			lblOrderNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			lblOrderNo.setBackground(Color.BLUE);
 
-	         textOrderNo = new JTextField();
-	         panel_3.add(textOrderNo);
-	         textOrderNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textOrderNo.setColumns(10);
+			textOrderNo = new JTextField();
+			insertPanelTop.add(textOrderNo);
+			textOrderNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textOrderNo.setColumns(10);
 
-	         JLabel lblID = new JLabel("ID");
-	         panel_3.add(lblID);
-	         lblID.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			JLabel lblID = new JLabel("ID");
+			insertPanelTop.add(lblID);
+			lblID.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 
-	         textID = new JTextField();
-	         panel_3.add(textID);
-	         textID.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textID.setColumns(10);
+			textID = new JTextField();
+			insertPanelTop.add(textID);
+			textID.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textID.setColumns(10);
 
-	         JLabel lblOrderDate = new JLabel("\uD310\uB9E4 \uB0A0\uC9DC");
-	         panel_3.add(lblOrderDate);
-	         lblOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			JLabel lblOrderDate = new JLabel("\uD310\uB9E4 \uB0A0\uC9DC");
+			insertPanelTop.add(lblOrderDate);
+			lblOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 
-	         textOrderDate = new JTextField();
-	         panel_3.add(textOrderDate);
-	         textOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textOrderDate.setColumns(10);
+			textOrderDate = new JTextField();
+			insertPanelTop.add(textOrderDate);
+			textOrderDate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textOrderDate.setColumns(10);
 
-	         JLabel lblProductNo = new JLabel("\uC0C1\uD488 \uBC88\uD638");
-	         panel_3.add(lblProductNo);
-	         lblProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			JLabel lblProductNo = new JLabel("\uC0C1\uD488 \uBC88\uD638");
+			insertPanelTop.add(lblProductNo);
+			lblProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 
-	         textProductNo = new JTextField();
-	         panel_3.add(textProductNo);
-	         textProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textProductNo.setColumns(10);
+			textProductNo = new JTextField();
+			insertPanelTop.add(textProductNo);
+			textProductNo.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textProductNo.setColumns(10);
 
-	         JPanel panel_2 = new JPanel();
-	         panel_2.setBackground(new Color(255, 255, 255));
-	         panel_2.setBounds(0, 40, 992, 40);
-	         panel_1.add(panel_2);
-	         panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			JPanel insertPanelMiddle = new JPanel();
+			insertPanelMiddle.setBackground(new Color(255, 255, 255));
+			insertPanelMiddle.setBounds(0, 40, 992, 40);
+			insertPanel2.add(insertPanelMiddle);
+			insertPanelMiddle.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-	         JLabel lblOrderAmount = new JLabel("\uC218\uB7C9");
-	         panel_2.add(lblOrderAmount);
-	         lblOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			JLabel lblOrderAmount = new JLabel("\uC218\uB7C9");
+			lblOrderAmount.setToolTipText("");
+			insertPanelMiddle.add(lblOrderAmount);
+			lblOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 
-	         textOrderAmount = new JTextField();
-	         panel_2.add(textOrderAmount);
-	         textOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textOrderAmount.setColumns(10);
+			textOrderAmount = new JTextField();
+			textOrderAmount.setToolTipText("");
+			insertPanelMiddle.add(textOrderAmount);
+			textOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textOrderAmount.setColumns(10);
 
-	         JComboBox comboBox = new JComboBox(new String[] { "´ÜÀÏ", "Æ÷ÇÔ", "ÀÌ»ó", "ÀÌÇÏ" });
-	         comboBox.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         comboBox.setBackground(new Color(255, 255, 255));
-	         panel_2.add(comboBox);
+			comboBoxOrderAmount = new JComboBox(new String[] { "´ÜÀÏ", "Æ÷ÇÔ", "ÀÌ»ó", "ÀÌÇÏ" });
+			comboBoxOrderAmount.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			comboBoxOrderAmount.setBackground(new Color(255, 255, 255));
+			insertPanelMiddle.add(comboBoxOrderAmount);
 
-	         JLabel lblTotalPrice = new JLabel("\uD310\uB9E4 \uAE08\uC561");
-	         panel_2.add(lblTotalPrice);
-	         lblTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         lblTotalPrice.setBackground(Color.WHITE);
+			JLabel lblTotalPrice = new JLabel("\uD310\uB9E4 \uAE08\uC561");
+			insertPanelMiddle.add(lblTotalPrice);
+			lblTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			lblTotalPrice.setBackground(Color.WHITE);
 
-	         textTotalPrice = new JTextField();
-	         panel_2.add(textTotalPrice);
-	         textTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textTotalPrice.setColumns(10);
+			textTotalPrice = new JTextField();
+			textTotalPrice.setToolTipText("");
+			insertPanelMiddle.add(textTotalPrice);
+			textTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textTotalPrice.setColumns(10);
 
-	         JComboBox comboBox_1 = new JComboBox(new String[] { "´ÜÀÏ", "Æ÷ÇÔ", "ÀÌ»ó", "ÀÌÇÏ" });
-	         comboBox_1.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         comboBox_1.setBackground(new Color(255, 255, 255));
-	         panel_2.add(comboBox_1);
+			comboBoxTotalPrice = new JComboBox(new String[] { "´ÜÀÏ", "Æ÷ÇÔ", "ÀÌ»ó", "ÀÌÇÏ" });
+			comboBoxTotalPrice.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			comboBoxTotalPrice.setBackground(new Color(255, 255, 255));
+			insertPanelMiddle.add(comboBoxTotalPrice);
 
-	         JLabel lblSum = new JLabel("\uCD1D \uD310\uB9E4\uC561");
-	         panel_2.add(lblSum);
-	         lblSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         lblSum.setBackground(Color.BLUE);
+			JPanel insertPanelBottom = new JPanel();
+			insertPanelBottom.setBackground(Color.WHITE);
+			insertPanelBottom.setBounds(0, 80, 992, 40);
+			insertPanel2.add(insertPanelBottom);
+			insertPanelBottom.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-	         textSum = new JTextField();
-	         
-	         panel_2.add(textSum);
-	         textSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         textSum.setColumns(10);
+			JLabel lblLineSum = new JLabel("\uCD9C\uB825(\uC120\uD0DD)\uB41C \uD589");
+			lblLineSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			lblLineSum.setBackground(Color.BLUE);
+			insertPanelBottom.add(lblLineSum);
 
-	         JPanel panel = new JPanel();
-	         panel.setBackground(new Color(255, 255, 255));
-	         panel.setBounds(1003, 536, 169, 120);
-	         order.add(panel);
-	         panel.setLayout(null);
+			textLineSum = new JTextField();
+			textLineSum.setText("0");
+			textLineSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textLineSum.setColumns(10);
+			insertPanelBottom.add(textLineSum);
 
-	         JPanel panel_4 = new JPanel();
-	         panel_4.setBackground(new Color(255, 255, 255));
-	         panel_4.setBounds(0, 0, 169, 40);
-	         panel.add(panel_4);
+			JLabel lblSum = new JLabel("\uCD1D \uD310\uB9E4\uC561");
+			insertPanelBottom.add(lblSum);
+			lblSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			lblSum.setBackground(Color.BLUE);
 
-	         JButton btnSearch = new RoundedButton("\uAC80\uC0C9");
-	         panel_4.add(btnSearch);
-	         btnSearch.setForeground(new Color(255, 255, 255));
-	         btnSearch.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         btnSearch.setBackground(new Color(135, 206, 250));
+			textSum = new JTextField();
+			insertPanelBottom.add(textSum);
+			textSum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			textSum.setColumns(10);
 
-	         JButton btnUpdate = new RoundedButton("\uC218\uC815");
-	         panel_4.add(btnUpdate);
-	         btnUpdate.setText("\uAC31\uC2E0");
-	         btnUpdate.setForeground(new Color(255, 255, 255));
-	         btnUpdate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         btnUpdate.setBackground(new Color(135, 206, 250));
-	         
-	         JPanel panel_5 = new JPanel();
-	         panel_5.setBackground(new Color(255, 255, 255));
-	         panel_5.setBounds(0, 40, 169, 40);
-	         panel.add(panel_5);
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setBackground(new Color(255, 255, 255));
+			buttonPanel.setBounds(1003, 536, 169, 120);
+			order.add(buttonPanel);
+			buttonPanel.setLayout(null);
 
-	         JButton btnSave = new RoundedButton("\uC800\uC7A5");
-	         panel_5.add(btnSave);
-	         btnSave.setText("\uCD94\uAC00");
-	         btnSave.setForeground(new Color(255, 255, 255));
-	         btnSave.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         btnSave.setBackground(new Color(135, 206, 250));
+			JPanel buttonPanelTop = new JPanel();
+			buttonPanelTop.setBackground(new Color(255, 255, 255));
+			buttonPanelTop.setBounds(0, 0, 169, 40);
+			buttonPanel.add(buttonPanelTop);
 
-	         JButton btnDelete = new RoundedButton("\uC0AD\uC81C");
-	         panel_5.add(btnDelete);
-	         btnDelete.setForeground(new Color(255, 255, 255));
-	         btnDelete.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         btnDelete.setBackground(new Color(135, 206, 250));
-	         
-	         JPanel panel_6 = new JPanel();
-	         panel_6.setBackground(new Color(255, 255, 255));
-	         panel_6.setBounds(0, 80, 169, 40);
-	         panel.add(panel_6);
+			JButton btnSearch = new RoundedButton("\uAC80\uC0C9");
+			buttonPanelTop.add(btnSearch);
+			btnSearch.setForeground(new Color(255, 255, 255));
+			btnSearch.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			btnSearch.setBackground(new Color(135, 206, 250));
 
-	         JButton btnReset = new RoundedButton("Reset");
-	         panel_6.add(btnReset);
-	         btnReset.setText("\uCD08\uAE30\uD654");
-	         btnReset.setForeground(new Color(255, 255, 255));
-	         btnReset.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-	         btnReset.setBackground(new Color(135, 206, 250));
+			JButton btnUpdate = new RoundedButton("\uC218\uC815");
+			buttonPanelTop.add(btnUpdate);
+			btnUpdate.setText("\uAC31\uC2E0");
+			btnUpdate.setForeground(new Color(255, 255, 255));
+			btnUpdate.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			btnUpdate.setBackground(new Color(135, 206, 250));
+
+			JPanel buttonPanelMiddle = new JPanel();
+			buttonPanelMiddle.setBackground(new Color(255, 255, 255));
+			buttonPanelMiddle.setBounds(0, 40, 169, 40);
+			buttonPanel.add(buttonPanelMiddle);
+
+			JButton btnSave = new RoundedButton("\uC800\uC7A5");
+			buttonPanelMiddle.add(btnSave);
+			btnSave.setText("\uCD94\uAC00");
+			btnSave.setForeground(new Color(255, 255, 255));
+			btnSave.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			btnSave.setBackground(new Color(135, 206, 250));
+
+			JButton btnDelete = new RoundedButton("\uC0AD\uC81C");
+			buttonPanelMiddle.add(btnDelete);
+			btnDelete.setForeground(new Color(255, 255, 255));
+			btnDelete.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			btnDelete.setBackground(new Color(135, 206, 250));
+
+			JPanel buttonPanelBottom = new JPanel();
+			buttonPanelBottom.setBackground(new Color(255, 255, 255));
+			buttonPanelBottom.setBounds(0, 80, 169, 40);
+			buttonPanel.add(buttonPanelBottom);
+
+			JButton btnReset = new RoundedButton("Reset");
+			buttonPanelBottom.add(btnReset);
+			btnReset.setText("\uCD08\uAE30\uD654");
+			btnReset.setForeground(new Color(255, 255, 255));
+			btnReset.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+			btnReset.setBackground(new Color(135, 206, 250));
 
 			// ÁÖ¹®Á¤º¸
 			btnReset.addActionListener(new ActionListener() {
@@ -375,7 +399,8 @@ public class OrderPanel {
 			btnSearch.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					searchOrder(textOrderNo.getText(), textID.getText(), textProductNo.getText(),
-							textOrderAmount.getText(), textOrderDate.getText(), textTotalPrice.getText());
+							textOrderAmount.getText(), textOrderDate.getText(), textTotalPrice.getText(),
+							comboBoxOrderAmount.getSelectedIndex(), comboBoxTotalPrice.getSelectedIndex());
 				}
 			});
 
@@ -391,13 +416,16 @@ public class OrderPanel {
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			int sum = 0;
+			int idx1 = 0;
 			while (rs.next()) {
 				model.addRow(new Object[] { rs.getInt("orderNo"), rs.getString("ID"), rs.getInt("productNo"),
 						rs.getInt("orderAmount"), rs.getString("orderDate"), rs.getInt("totalPrice") });
 				sum += rs.getInt("totalPrice");
+				idx1++;
 			}
 			String sumResult = formatter.format(sum);
 			textSum.setText(sumResult);
+			textLineSum.setText(Integer.toString(idx1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -419,7 +447,7 @@ public class OrderPanel {
 	}
 
 	public static void searchOrder(String orderNo, String ID, String productNo, String orderAmount, String orderDate,
-			String totalPrice) {
+			String totalPrice, int comboOrderAmount, int comboTotalPrice) {
 		String sql = "SELECT * FROM ordertbl WHERE ";
 
 		if (!orderNo.equals("")) {
@@ -458,9 +486,31 @@ public class OrderPanel {
 		if (!orderAmount.equals("")) {
 			st = new StringTokenizer(orderAmount, ",");
 			sql = sql + "(";
-			while (st.hasMoreTokens()) {
-				sql = sql + "Cast(orderAmount as char(10)) like ? or ";
-				st.nextToken();
+			switch (comboOrderAmount) {
+			case (0):
+				while(st.hasMoreTokens()) {
+					sql = sql + "orderAmount = ? or ";
+					st.nextToken();
+				}				
+				break;
+			case (1):
+				while (st.hasMoreTokens()) {
+					sql = sql + "Cast(orderAmount as char(10)) like ? or ";
+					st.nextToken();
+				}
+				break;
+			case (2):
+				while(st.hasMoreTokens()) {
+					sql = sql + "orderAmount >= ? or ";
+					st.nextToken();
+				}
+				break;
+			case (3):
+				while(st.hasMoreTokens()) {
+					sql = sql + "orderAmount <= ? or ";
+					st.nextToken();
+				}
+				break;
 			}
 			sql = sql.substring(0, sql.length() - 3);
 			sql = sql + ")";
@@ -480,16 +530,37 @@ public class OrderPanel {
 		if (!totalPrice.equals("")) {
 			st = new StringTokenizer(totalPrice, ",");
 			sql = sql + "(";
-			while (st.hasMoreTokens()) {
-				sql = sql + "Cast(totalPrice as char(15)) like ? or ";
-				st.nextToken();
+			switch (comboTotalPrice) {
+			case (0):
+				while(st.hasMoreTokens()) {
+					sql = sql + "totalPrice = ? or ";
+					st.nextToken();
+				}				
+				break;
+			case (1):
+				while (st.hasMoreTokens()) {
+					sql = sql + "Cast(totalPrice as char(15)) like ? or ";
+					st.nextToken();
+				}
+				break;
+			case (2):
+				while(st.hasMoreTokens()) {
+					sql = sql + "totalPrice >= ? or ";
+					st.nextToken();
+				}
+				break;
+			case (3):
+				while(st.hasMoreTokens()) {
+					sql = sql + "totalPrice <= ? or ";
+					st.nextToken();
+				}
+				break;
 			}
 			sql = sql.substring(0, sql.length() - 3);
 			sql = sql + ")";
 			sql = sql + " and ";
 		}
 		sql = sql.substring(0, sql.length() - 4);
-		System.out.println(sql);
 		try {
 			pstmt = con.prepareStatement(sql);
 			int idx = 1;
@@ -513,9 +584,18 @@ public class OrderPanel {
 			}
 			if (!orderAmount.equals("")) {
 				st = new StringTokenizer(orderAmount, ",");
-				while (st.hasMoreTokens()) {
-					pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
-				}
+				switch (comboOrderAmount) {
+				case (1):
+					while (st.hasMoreTokens()) {
+						pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
+					}
+					break;
+				default:
+					while(st.hasMoreTokens()) {
+						pstmt.setInt(idx++, Integer.parseInt(st.nextToken().trim()));
+					}
+					break;
+				}				
 			}
 			if (!orderDate.equals("")) {
 				st = new StringTokenizer(orderDate, ",");
@@ -525,21 +605,33 @@ public class OrderPanel {
 			}
 			if (!totalPrice.equals("")) {
 				st = new StringTokenizer(totalPrice, ",");
-				while (st.hasMoreTokens()) {
-					pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
-				}
+				switch (comboTotalPrice) {
+				case (1):
+					while (st.hasMoreTokens()) {
+						pstmt.setString(idx++, "%" + st.nextToken().trim() + "%");
+					}
+					break;
+				default:
+					while(st.hasMoreTokens()) {
+						pstmt.setInt(idx++, Integer.parseInt(st.nextToken().trim()));
+					}
+					break;
+				}				
 			}
 
 			rs = pstmt.executeQuery();
 			model.setRowCount(0);
 			int sum = 0;
+			int idx2 = 0;
 			while (rs.next()) {
 				model.addRow(new Object[] { rs.getInt("orderNo"), rs.getString("ID"), rs.getInt("productNo"),
 						rs.getInt("orderAmount"), rs.getString("orderDate"), rs.getInt("totalPrice") });
 				sum += rs.getInt("totalPrice");
+				idx2++;
 			}
 			String sumResult = formatter.format(sum);
 			textSum.setText(sumResult);
+			textLineSum.setText(Integer.toString(idx2));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
