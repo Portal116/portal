@@ -186,7 +186,7 @@ public class MemberPanel {
 			infoPanel.add(infoPanel_3);
 			infoPanel_3.setLayout(null);
 
-			JLabel selectCntLabel = new JLabel("\uC120\uD0DD \uD589 \uC218");
+			JLabel selectCntLabel = new JLabel("\uD589\uC758 \uAC1C\uC218");
 			selectCntLabel.setBounds(390, 9, 70, 21);
 			selectCntLabel.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 			infoPanel_3.add(selectCntLabel);

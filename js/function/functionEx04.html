@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // 화살표함수는 롤백함수를 쉽게 입력하고자 단순한 형태로 나타낸 것
+        // // 구성 : (매개변수) => {문장1; 문장2;}
+        // // 만약 처리할 문장이 1개면 {} 생략 가능
+        // let numbers = [0,1,2,3,4,5,6,7,8,9];
+        // numbers.filter((value) => value%2 == 0)
+        //         .map((value) => value*value)
+        //         .forEach((value) => {console.log(value)});
+
+
+        // // 타이머 함수
+        // // 특정시간마다 or 특정시간 이후에 콜백함수를 호출할 수 있는 함수
+        // // setTimeout(함수, 시간) 특정 시간 이후 함수를 한번 호출
+        // // setInterval(함수, 시간) 특정 시간 마다 함수를 출
+        // setTimeout(() => {
+        //    console.log('1초 후에 실행됩니다'); 
+        // }, 1*1000);
+        // setInterval(() => {
+        //     console.log('2초 마다 실행됩니다');
+        // }, 2*1000);
+        // // ms 단위이므로 *1000
+
+
+        // 타이머 취소하기
+        let id;
+        let count = 0;
+        id = setInterval(() => {
+            console.log(`1초마다 실행됩니다 / ${++count} 번째`);
+        }, 1*1000);
+        setTimeout(() => {
+            console.log('타이머를 종료합니다');
+            clearInterval(id);
+        }, 5*1000);
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package shoppingMall;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,11 @@ public class Frame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setSize(1200, 800);
+		frame.setPreferredSize(new Dimension(1200,800));
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
+		
+
 
 		addPanel();
 	}
@@ -28,6 +32,7 @@ public class Frame {
 		temp.add(MenuPanel.getPanel());
 		temp.add(MemberPanel.getPanel());
 		temp.add(OrderPanel.getPanel());
+//		temp.add(OrderPanelVer01.getPanel());
 		temp.add(ProductPanel.getPanel());
 		return temp;
 	}

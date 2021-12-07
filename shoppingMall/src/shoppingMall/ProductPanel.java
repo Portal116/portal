@@ -204,23 +204,23 @@ public class ProductPanel {
 			comboBoxPrice.setBackground(Color.WHITE);
 			comboBoxPrice.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 			infoPanel_2.add(comboBoxPrice);
+			JLabel lblAmount = new JLabel("\uC218\uB7C9");
+			infoPanel_2.add(lblAmount);
+			lblAmount.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAmount.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
+			textAmount = new JTextField();
+			infoPanel_2.add(textAmount);
+			textAmount.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
+			textAmount.setColumns(10);
+			JComboBox comboBoxAmount = new JComboBox(new String[] { "¥‹¿œ", "∆˜«‘", "¿ÃªÛ", "¿Ã«œ" });
+			infoPanel_2.add(comboBoxAmount);
+			comboBoxAmount.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
+			comboBoxAmount.setBackground(Color.WHITE);
 			JPanel infoPanel_3 = new JPanel();
 			infoPanel_3.setBackground(UIManager.getColor("Button.disabledShadow"));
 			infoPanel_3.setBounds(0, 80, 991, 40);
 			infoPanel.add(infoPanel_3);
 			infoPanel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			JLabel lblAmount = new JLabel("\uC218\uB7C9");
-			lblAmount.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAmount.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
-			infoPanel_3.add(lblAmount);
-			textAmount = new JTextField();
-			textAmount.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
-			textAmount.setColumns(10);
-			infoPanel_3.add(textAmount);
-			JComboBox comboBoxAmount = new JComboBox(new String[] { "¥‹¿œ", "∆˜«‘", "¿ÃªÛ", "¿Ã«œ" });
-			comboBoxAmount.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
-			comboBoxAmount.setBackground(Color.WHITE);
-			infoPanel_3.add(comboBoxAmount);
 			JLabel lblReDate = new JLabel("\uC785\uACE0\uB0A0\uC9DC");
 			lblReDate.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReDate.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
@@ -230,8 +230,8 @@ public class ProductPanel {
 			textReDate.setColumns(10);
 			textReDate.setToolTipText("yyyy-MM-dd");
 			infoPanel_3.add(textReDate);
-			
-			JLabel selectCntLabel = new JLabel("\uC218");
+
+			JLabel selectCntLabel = new JLabel("\uD589\uC758 \uAC1C\uC218");
 			selectCntLabel.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 			infoPanel_3.add(selectCntLabel);
 
@@ -277,6 +277,9 @@ public class ProductPanel {
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setUpdate();
+//					setUpdate(Integer.parseInt(textPNo.getText()), textPName.getText(), textType.getText(),
+//							Integer.parseInt(textCost.getText()), Integer.parseInt(textPrice.getText()),
+//							Integer.parseInt(textAmount.getText()), textReDate.getText());
 				}
 			});
 			btnUpdate.setForeground(Color.WHITE);
@@ -394,6 +397,32 @@ public class ProductPanel {
 		}
 	}
 
+//	private static void setUpdate(int ProductNo, String productName, String productType, int cost, int price,
+//			int amount, String receivedDate) {
+//		String sql = "UPDATE producttbl SET productNo = ?, productName = ?, productType = ?, cost = ?, price = ?, amount = ?, receivedDate = ? where productNo = ?";
+//		try {
+//			int idx = 1;
+//			String date = textReDate.getText();
+//			java.sql.Date sDate = java.sql.Date.valueOf(date);
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(idx++, Integer.parseInt(textPNo.getText()));
+//			pstmt.setString(idx++, textPName.getText());
+//			pstmt.setString(idx++, textType.getText());
+//			pstmt.setInt(idx++, Integer.parseInt(textCost.getText()));
+//			pstmt.setInt(idx++, Integer.parseInt(textPrice.getText()));
+//			pstmt.setInt(idx++, Integer.parseInt(textAmount.getText()));
+//			pstmt.setDate(idx++, sDate);
+//			pstmt.setInt(idx++, (Integer) model.getValueAt(select, 0));
+//			System.out.println(select);
+//			pstmt.executeUpdate();
+//			model.setRowCount(0);
+//			getTable();
+//			if (pstmt != null)
+//				pstmt.close();
+//		} catch (SQLException e1) {
+//			e1.printStackTrace();
+//		}
+//	}
 	private static void setUpdate() {
 		String sql = "UPDATE producttbl SET productNo = ?, productName = ?, productType = ?, cost = ?, price = ?, amount = ?, receivedDate = ? where productNo = ?";
 		try {

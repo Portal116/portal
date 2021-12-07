@@ -11,8 +11,8 @@ public class DBConnect {
 		if (conn == null) {
 			try {
 				String driver = "com.mysql.cj.jdbc.Driver";
-//				String url = "jdbc:mysql://localhost:3306/shopmallmanageDB?useUnicode=true&characterEncoding=utf8";
-				String url = "jdbc:mysql://localhost:3306/shopmallmanageDB";
+				String url = "jdbc:mysql://localhost:3306/shopmallmanageDB?useUnicode=true&characterEncoding=utf8";
+//				String url = "jdbc:mysql://localhost:3306/shopmallmanageDB";
 				String user = "root";
 				String pwd = "1234";
 				Class.forName(driver);

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <script>
+        // 이름 충돌문제
+        let pi = 3.14; // 변수 처리 범위
+        console.log(`파이 값은 ${pi}`);
+    </script>
+    <script>
+        // let pi = 3.14;
+        console.log(`파이 값은 ${pi}`);
+    </script> -->
+
+    <!-- <script>
+        let pi = 3.14;
+        console.log(`파이 값은 ${pi}`);
+
+        // 블록[]을 사용하면 [] 안을 지역변수로 처리
+        {
+            let pi = 3.141592;
+            console.log(`파이 값은 ${pi}`);
+        }
+
+        // 함수 블록{} 안을 지역변수로 처리
+        function sample() {
+            let pi = 3.1415926535;
+            console.log(`파이 값은 ${pi}`);
+        }
+        sample();
+    </script> -->
+
+
+    <script>
+        'use strict'
+        (function() {
+            let pi = 3.14;
+            console.log(`파이 값은 ${pi}`);
+        })();
+        let data = 10;
+        console.log(data);
+    </script>
+</body>
+</html>
