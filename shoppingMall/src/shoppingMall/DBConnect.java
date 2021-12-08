@@ -1,4 +1,4 @@
-package shoppingMall;
+package shoppingmall;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

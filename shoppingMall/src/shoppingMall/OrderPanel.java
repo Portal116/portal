@@ -1,7 +1,8 @@
-package shoppingMall;
+package shoppingmall;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,12 +32,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.UIManager;
 
 public class OrderPanel {
 	private static JPanel order = null;
@@ -84,19 +85,31 @@ public class OrderPanel {
 					return false;
 				}
 			};
-			table = new JTable(model);
-			resizeColumnWidth(table);
+			table = new JTable(model) {
+				@Override
+				public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+					Component component = super.prepareRenderer(renderer, row, column);
+					int rendererWidth = component.getPreferredSize().width;
+					TableColumn tableColumn = getColumnModel().getColumn(column);
+					tableColumn.setPreferredWidth(
+							Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+					return component;
+				}
+			};
+
 			table.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			table.getTableHeader().setReorderingAllowed(false);
 			table.setRowHeight(30);
 			table.getTableHeader().setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 			centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-			table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-			table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-			table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-			table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-			table.getColumnModel().getColumn(5).setCellRenderer(new RightNumberRenderer());
+			for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+				if (i == 5)
+					table.getColumnModel().getColumn(i).setCellRenderer(new RightNumberRenderer());
+				else
+					table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+			}
+
 //         여러개 선택해서 총 판매액 출력 용도
 			table.addKeyListener(new KeyAdapter() {
 				@Override
@@ -113,7 +126,19 @@ public class OrderPanel {
 					textSum.setText(sumResult);
 					textFieldSelectCnt.setText(Integer.toString(table.getSelectedRowCount()));
 				}
+
+				public void keyPressed(KeyEvent e) {
+					int temp = table.getSelectedRow();
+					int idx = 0;
+					textOrderNo.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+					textID.setText((String) (model.getValueAt(temp, idx++)));
+					textOrderDate.setText((String) model.getValueAt(temp, idx++));
+					textProductNo.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+					textOrderAmount.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+					textTotalPrice.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+				}
 			});
+
 			table.addMouseListener(new MouseAdapter() {
 //            여러개 선택해서 총 판매액 출력 용도
 				@Override
@@ -135,12 +160,13 @@ public class OrderPanel {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					int temp = table.getSelectedRow();
-					textOrderNo.setText(Integer.toString((Integer) model.getValueAt(temp, 0)));
-					textID.setText((String) (model.getValueAt(temp, 1)));
-					textOrderDate.setText((String) model.getValueAt(temp, 2));
-					textProductNo.setText(Integer.toString((Integer) model.getValueAt(temp, 3)));
-					textOrderAmount.setText(Integer.toString((Integer) model.getValueAt(temp, 4)));
-					textTotalPrice.setText(Integer.toString((Integer) model.getValueAt(temp, 5)));
+					int idx = 0;
+					textOrderNo.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+					textID.setText((String) (model.getValueAt(temp, idx++)));
+					textOrderDate.setText((String) model.getValueAt(temp, idx++));
+					textProductNo.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+					textOrderAmount.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
+					textTotalPrice.setText(Integer.toString((Integer) model.getValueAt(temp, idx++)));
 				}
 			});
 			JScrollPane scrollPane = new JScrollPane(table);
@@ -315,71 +341,20 @@ public class OrderPanel {
 			// 주문정보 저장하기 - ID, 상품번호, 개수, 주문날짜로 입력 / 주문번호는 AI, 가격은 트리거로 자동
 			btnInsert.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
-						String sql = "Select amount from producttbl where productNo = ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, Integer.parseInt(textProductNo.getText()));
-						rs = pstmt.executeQuery();
-						rs.next();
-						if (rs.getInt("amount") >= Integer.parseInt(textOrderAmount.getText())) {
-							sql = "INSERT INTO ordertbl(ID, productNo, orderAmount, orderDate) VALUES(?, ?, ?, ?)";
-							pstmt = con.prepareStatement(sql);
-							pstmt.setString(1, textID.getText());
-							pstmt.setInt(2, Integer.parseInt(textProductNo.getText()));
-							pstmt.setInt(3, Integer.parseInt(textOrderAmount.getText()));
-							String date = textOrderDate.getText();
-							java.sql.Date sDate = java.sql.Date.valueOf(date);
-							pstmt.setDate(4, sDate);
-							pstmt.executeUpdate();
-						} else {
-
-							String error = "주문량이 재고보다 많습니다.";
-							JLabel lblError = new JLabel(error);
-							lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-							dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
-						}
-						getTable();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					insertOrder();
 				}
 			});
 
 			// 주문정보 데이터 수정 하기
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String sql = "UPDATE ordertbl SET ID=?, productNo=?, "
-							+ " orderAmount=?, orderDate=? WHERE orderNo = ?";
-					try {
-						pstmt = con.prepareStatement(sql);
-						pstmt.setString(1, textID.getText());
-						pstmt.setInt(2, Integer.parseInt(textProductNo.getText()));
-						pstmt.setInt(3, Integer.parseInt(textOrderAmount.getText()));
-						String date = textOrderDate.getText();
-						java.sql.Date sDate = java.sql.Date.valueOf(date);
-						pstmt.setDate(4, sDate);
-						pstmt.setInt(5, Integer.parseInt(textOrderNo.getText()));
-						pstmt.executeUpdate();
-						getTable();
-						pstmt.close();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					updateOrder();
 				}
 			});
 			// 주문정보 삭제하기 - 주문번호로 삭제
 			btnDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String sql = "DELETE FROM ordertbl WHERE orderNo = ?";
-					try {
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, Integer.parseInt(textOrderNo.getText()));
-						pstmt.executeUpdate();
-						getTable();
-						pstmt.close();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					deleteOrder();
 				}
 			});
 			btnSearch.addActionListener(new ActionListener() {
@@ -430,22 +405,101 @@ public class OrderPanel {
 		}
 	}
 
-	public static void resizeColumnWidth(JTable table) {
-		final TableColumnModel columnModel = table.getColumnModel();
-		for (int column = 0; column < table.getColumnCount(); column++) {
-			int width = 15; // Min width
-			for (int row = 0; row < table.getRowCount(); row++) {
-				TableCellRenderer renderer = table.getCellRenderer(row, column);
-				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width + 1, width);
+	private static void updateOrder() {
+		try {
+			String sql = "Select amount from producttbl where productNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(textProductNo.getText()));
+			rs = pstmt.executeQuery();
+			rs.next();
+			if (rs.getInt("amount") >= Integer.parseInt(textOrderAmount.getText())) {
+				sql = "UPDATE ordertbl SET ID=?, productNo=?, " + " orderAmount=?, orderDate=? WHERE orderNo = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, textID.getText());
+				pstmt.setInt(2, Integer.parseInt(textProductNo.getText()));
+				pstmt.setInt(3, Integer.parseInt(textOrderAmount.getText()));
+				String date = textOrderDate.getText();
+				java.sql.Date sDate = java.sql.Date.valueOf(date);
+				pstmt.setDate(4, sDate);
+				pstmt.setInt(5, Integer.parseInt(textOrderNo.getText()));
+				pstmt.executeUpdate();
+				pstmt.close();
+				String error = "주문 정보를 갱신했습니다.";
+				JLabel lblError = new JLabel(error);
+				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+			} else {
+				String error = "주문 정보를 갱신하지 못했습니다.";
+				JLabel lblError = new JLabel(error);
+				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 			}
-			if (width > 300)
-				width = 300;
-			columnModel.getColumn(column).setPreferredWidth(width);
+			getTable();
+		} catch (Exception ex) {
+			String error = "주문 정보를 갱신하지 못했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
-	public static void searchOrder(String orderNo, String ID, String productNo, String orderAmount, String orderDate,
+	private static void deleteOrder() {
+		String sql = "DELETE FROM ordertbl WHERE orderNo = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(textOrderNo.getText()));
+			pstmt.executeUpdate();
+			getTable();
+			pstmt.close();
+			String error = "주문 정보를 삭제했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+		} catch (Exception ex) {
+			String error = "주문 정보를 삭제하지 못했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+		}
+	}
+
+	private static void insertOrder() {
+		try {
+			String sql = "Select amount from producttbl where productNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(textProductNo.getText()));
+			rs = pstmt.executeQuery();
+			rs.next();
+			if (rs.getInt("amount") >= Integer.parseInt(textOrderAmount.getText())) {
+				sql = "INSERT INTO ordertbl(ID, productNo, orderAmount, orderDate) VALUES(?, ?, ?, ?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, textID.getText());
+				pstmt.setInt(2, Integer.parseInt(textProductNo.getText()));
+				pstmt.setInt(3, Integer.parseInt(textOrderAmount.getText()));
+				String date = textOrderDate.getText();
+				java.sql.Date sDate = java.sql.Date.valueOf(date);
+				pstmt.setDate(4, sDate);
+				pstmt.executeUpdate();
+				String error = "주문 정보를 추가했습니다.";
+				JLabel lblError = new JLabel(error);
+				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+			} else {
+				String error = "주문량이 재고보다 많습니다.";
+				JLabel lblError = new JLabel(error);
+				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			}
+			getTable();
+		} catch (Exception ex) {
+			String error = "주문 정보를 추가하지 못했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+		}
+	}
+
+	private static void searchOrder(String orderNo, String ID, String productNo, String orderAmount, String orderDate,
 			String totalPrice, int comboProductNo, int comboOrderAmount, int comboTotalPrice) {
 		String sql = "SELECT * FROM ordertbl WHERE ";
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const object = {
+        //     number : 273,
+        //     string : '구름',
+        //     boolean : true,
+        //     array : [52, 27, 103, 32],
+        //     method1 : function(){
+        //         console.log('이곳은 객체 안의 메소드입니다');
+        //     },
+        //     method2 : function(i) {
+        //         console.log(`${i} 입력받아 출력됨`);
+        //     },
+        //     method3 : function(i,j,name,b){
+        //         console.log(`${i}, ${j}, ${name}, ${b}`);
+        //     },
+        //     method4 : function(){
+        //         alert(this.number + " " + this.string + " " + this.boolean + " " + this.array)
+        //     }
+        // };
+        // console.log(object.number);
+        // console.log(object.string);
+        // console.log(object.boolean);
+        // console.log(object.array);
+        // object.method1();
+        // object.method2(3);
+        // object.method3(10, 50, '홍길동', true)
+        // object.method4();
+
+        const pet = {
+            name : '구름',
+            // eat : function(food) {
+            //     alert(`${this.name} ${food} 을 먹습니다`)
+            // }
+            eat(food) {
+                alert(`${this.name} ${food} 먹습니다`)
+            }
+        };
+        pet.eat('빵');
+    </script>
+</body>
+</html>

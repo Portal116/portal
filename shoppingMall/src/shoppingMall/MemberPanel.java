@@ -1,4 +1,4 @@
-package shoppingMall;
+package shoppingmall;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -29,9 +29,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 public class MemberPanel {
@@ -59,6 +60,7 @@ public class MemberPanel {
 	private static JPanel btnPanel_3;
 	private static JTextField textFieldSelectCnt;
 	private static JOptionPane dialog = new JOptionPane();
+
 	public MemberPanel() {
 		getPanel();
 	}
@@ -85,7 +87,17 @@ public class MemberPanel {
 //				}
 			};
 
-			table = new JTable(model);
+			table = new JTable(model) {
+				@Override
+				public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+					Component component = super.prepareRenderer(renderer, row, column);
+					int rendererWidth = component.getPreferredSize().width;
+					TableColumn tableColumn = getColumnModel().getColumn(column);
+					tableColumn.setPreferredWidth(
+							Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+					return component;
+				}
+			};
 			table.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent e) {
@@ -98,7 +110,11 @@ public class MemberPanel {
 					textFieldSelectCnt.setText(Integer.toString(table.getSelectedRowCount()));
 				}
 			});
-			resizeColumnWidth(table);
+			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+			centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+			table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+			table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+			table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 			table.setRowSorter(new TableRowSorter<DefaultTableModel>(model));
 			table.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			table.getTableHeader().setReorderingAllowed(false);
@@ -166,16 +182,16 @@ public class MemberPanel {
 
 			addressPanel = new JPanel();
 			addressPanel.setBackground(UIManager.getColor("Button.disabledShadow"));
-			addressPanel.setBounds(277, 0, 436, 40);
+			addressPanel.setBounds(112, 0, 767, 40);
 			infoPanel_2.add(addressPanel);
 			addressPanel.setLayout(null);
 			JLabel lblAddress = new JLabel("\uC8FC\uC18C");
-			lblAddress.setBounds(12, 9, 30, 21);
+			lblAddress.setBounds(42, 9, 30, 21);
 			addressPanel.add(lblAddress);
 			lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAddress.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			textAddress = new JTextField();
-			textAddress.setBounds(54, 6, 372, 27);
+			textAddress.setBounds(114, 6, 609, 27);
 			addressPanel.add(textAddress);
 			textAddress.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			textAddress.setColumns(10);
@@ -309,9 +325,15 @@ public class MemberPanel {
 
 			if (pstmt != null)
 				pstmt.close();
+			String error = "회원 정보를 추가했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			String error = "상품 정보를 추가하지 못했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
@@ -325,6 +347,10 @@ public class MemberPanel {
 			getTable();
 			if (pstmt != null)
 				pstmt.close();
+			String error = "회원 정보를 삭제했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (SQLException e1) {
 			String error = "주문 내역이 있는 회원이라 삭제할 수 없습니다.";
 			JLabel lblError = new JLabel(error);
@@ -348,8 +374,15 @@ public class MemberPanel {
 
 			if (pstmt != null)
 				pstmt.close();
+			String error = "회원 정보를 갱신했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			String error = "회원 정보를 갱신 하지 못했습니다.";
+			JLabel lblError = new JLabel(error);
+			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
@@ -370,21 +403,6 @@ public class MemberPanel {
 				pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-	}
-
-	public static void resizeColumnWidth(JTable table) {
-		final TableColumnModel columnModel = table.getColumnModel();
-		for (int column = 0; column < table.getColumnCount(); column++) {
-			int width = 15; // Min width
-			for (int row = 0; row < table.getRowCount(); row++) {
-				TableCellRenderer renderer = table.getCellRenderer(row, column);
-				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width + 1, width);
-			}
-			if (width > 300)
-				width = 300;
-			columnModel.getColumn(column).setPreferredWidth(width);
 		}
 	}
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const student = {};
+        student.이름 = "강기룡";
+        student.취미 = "게임";
+        student.장래희망 = "프로그래머";
+
+        delete student.장래희망;
+        console.log(student);
+        // 자바스크립트의 student 객체의 요소를 JSON객체로 바꾸기
+        console.log(JSON.stringify(student, null, 2));
+
+        // 정적으로 객체 만들기
+        const student1 = {
+            이름 : "강기룡",
+            취미 : "게임",
+            장래희망 : "프로그래머"
+        }
+
+        delete student1.장래희망;
+        student1.몸무게 = 60;
+        console.log(student1);
+        console.log(JSON.stringify(student1, null, 2));
+    </script>
+</body>
+</html>

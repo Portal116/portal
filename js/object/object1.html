@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const array = ['사과', '바나나', '망고', '딸기'];
+        // console.log(array[1]);
+
+
+        // 객체 형태
+        const product = {
+            제품명 : '컴퓨터',
+            유형 : '노트북',
+            가격 : 2000000,
+            'with space' : 273,
+            'with !@adf dka' : 10000,
+            100 : '기본급',
+            abc : '영어로',
+            pay : function() {}
+        };
+
+        // 객체 요소 출력
+        // 방법1 [] 이용
+        console.log(product['제품명']);
+        console.log(product['유형']);
+        console.log(product['가격']);
+        console.log(product['with space']);
+        console.log(product['with !@adf dka']);
+        console.log(product[100]);
+        console.log(product['abc']);
+        console.log('--------------------');
+        // 방법2 . 이용
+        console.log(product.제품명);
+        console.log(product.유형);
+        console.log(product.가격);
+        // console.log(product.'with space'); 불가능
+        // console.log(product.100); 불가능
+        console.log(product.abc);
+    </script>
+</body>
+</html>

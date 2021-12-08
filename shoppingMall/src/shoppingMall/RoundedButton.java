@@ -1,4 +1,4 @@
-package shoppingMall;
+package shoppingmall;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics;

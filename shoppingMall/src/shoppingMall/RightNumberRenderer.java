@@ -1,4 +1,4 @@
-package shoppingMall;
+package shoppingmall;
 
 import java.awt.Component;
 import java.text.DecimalFormat;

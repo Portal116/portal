@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const test = {
+            name : 'portal',
+            a: function(){ //익명함수의 메소드
+                console.log(this);
+            },
+            b: () => { 
+                console.log(this);
+                // 객체 안에 화살표함수의 메소드
+                // 화살표함수의 this는 window 객체를 가르킨다. 즉 웹페이지 객체를 가르킨다
+                // 때에 따라서 이것이 변경될 수 있다
+            }
+        }
+        test.a();
+        test.b();
+        // 따라서 객체에서 함수를 사용할 때는 화살표함수를 쓰지말고 익명함수를 사용
+        // 만약에 객체에서 window를 가르키려면 화살표함수의 this를 써라
+    </script>
+</body>
+</html>

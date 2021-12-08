@@ -1,4 +1,4 @@
-package shoppingMall;
+package shoppingmall;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Frame {
 		addPanel();
 	}
 
-	public static ArrayList<JPanel> setPanel() {
+	private static ArrayList<JPanel> setPanel() {
 		ArrayList<JPanel> temp = new ArrayList<>();
 		temp.add(HomePanel.getPanel());
 		temp.add(MenuPanel.getPanel());

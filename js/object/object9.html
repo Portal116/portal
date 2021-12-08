@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // // String 객체 중요 메소드
+        // // trim() -> 공백 없애기
+        // const StringA = '          문자열    문자열      ';
+        // console.log(StringA.length);
+        // console.log(StringA);
+        // let trimStringA = StringA.trim();
+        // console.log(trimStringA.length);
+        // console.log(trimStringA);
+
+        // split() -> 자르기
+        let input = `일자, 달러, 엔, 유로
+                    02, 1141, 8, 109.9, 1262
+                    03, 1142, 9, 109.9, 1262
+                    04, 1143, 10, 109.9, 1262
+                    05, 1144, 11, 109.9, 1262
+                    06, 1145, 12, 109.9, 1262`
+                    
+        let mIn = input.replace(/ /gi, '');
+        console.log(mIn);
+        let m2In = mIn.split('\n'); //줄바꿈 마다 잘라줌
+        console.log(m2In);
+        let m3In = m2In.map((line) => line.split(',')); //컴마마다 잘라줌
+        console.log(m3In);
+        let m4In = JSON.stringify(m3In, null, 2);
+        console.log(m4In);
+
+
+    </script>
+</body>
+
+</html>
