@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 문서 객체에서 first, second 선택
+            const divA = document.querySelector('#first');
+            const divB = document.querySelector('#second');
+
+            // 문서객체 h1을 생성하기
+            const header = document.createElement('h1');
+            // 생성한 태그 조작하기
+            header.textContent = 'HEADERS';
+            header.style.color = 'white';
+            header.style.backgroundColor = 'black';
+            header.style.fontSize = '20px';
+            header.style.padding = '10px';
+
+            // 서로 번갈아가며 실행하는 함수 구현
+            const toFirst = () => {
+                divA.appendChild(header);
+                setTimeout(toSecond, 1000)
+            }
+            const toSecond = () => {
+                divB.appendChild(header);
+                setTimeout(toFirst, 1000)
+            }
+            toFirst();
+        });
+    </script>
+</head>
+<body>
+    <div id="first">
+        <h1>첫번째 div 태그 내부</h1>
+    </div>
+    <div id="second">
+        <h1>두번째 div 태그 내부</h1>
+    </div>
+</body>
+</html>

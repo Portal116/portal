@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="test.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
+<body>
+    <script>
+        const books = [{
+            name : '혼공자바',
+            price : 20000,
+            publisher : '한빛'
+        },{
+            name : '혼공자바스크립트',
+            price : 35000,
+            publisher : '한빛'
+        },{
+            name : '혼공HTML',
+            price : 15000,
+            publisher : '한빛'
+        }];
+
+        // 가격순서대로 정렬해서 json 데이터로 만들기
+        const output = _.sortBy(books, (book) => book.name);
+        console.log(JSON.stringify(output, null, 2));
+    </script>
+</body>
+</html>

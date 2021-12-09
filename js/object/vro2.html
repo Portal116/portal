@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // 배열 전개 연산자
+        // const 물건1 = ['우유', '빵'];
+        // const 물건2 = 물건1;
+        // // 얕은 복사 - 힙주소를 복사해서 넣음
+        // console.log(물건1);
+        // console.log(물건2);
+        // 물건1.push('아이스크림');
+        // console.log(물건1);
+        // console.log(물건2);
+        // 물건2.push('사과');
+        // console.log(물건1);
+        // console.log(물건2);
+        
+        const 물건3 = ['우유', '빵'];
+        const 물건4 = [...물건3];
+        // 깊은 복사 - 전개 연산자를 사용해서 배열을 복사
+        물건3.push('아이스크림');
+        물건4.push('사과');
+        console.log(물건3);
+        console.log(물건4);
+
+    </script>
+</body>
+</html>

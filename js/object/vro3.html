@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // 배열 전개 연산자
+        // const 물건1 = ['우유', '빵'];
+        // const 물건2 = ['사과',...물건1,'아이스크림'];
+        // console.log(물건1);
+        // console.log(물건2);
+
+        // const a = ['우유', '빵'];
+        // const b = ['사과', '아이스크림'];
+        // console.log([...a, ...b]);
+        // const c = [...b, ...a];
+        // console.log(c);
+        // const [a1,a2,a3,a4] = [...b, ...a];
+        // console.log(a1 + " " + a2 + " " + a3 + " " + a4);
+
+        // 객체 전개 연산자
+        const 구름객체명 = {
+            키1 : '값1',
+            키2 : '값2',
+            키3 : '값3'
+        }
+        console.log('구름객체명 ' + 구름객체명.키1);
+        const 별객체명 = 구름객체명;
+        별객체명.키1 = '별키1';
+        console.log(구름객체명);
+        console.log(별객체명);
+    </script>
+</body>
+</html>

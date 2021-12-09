@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const data = [{
+            name : '자바스크립트',
+            price : 10000,
+            publisher : '한빛'
+        },
+        {
+            name : '자바',
+            price : 20000,
+            publisher : '길벗'
+        }]
+        // 자바스크립트 배열을 JSON으로 변환하기
+        console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data, null, 2));
+
+        const jsonData = JSON.stringify(data);
+
+        // JSON -> js
+        console.log(JSON.parse(jsonData));
+        console.log(typeof jsonData);
+
+    </script>
+</body>
+</html>

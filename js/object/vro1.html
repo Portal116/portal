@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // 속성 존재 여부 확인코드
+        // const object = {
+        //     name : '혼공자바',
+        //     price : 20000,
+        //     publisher : '한빛'
+        // }
+        // // 객체 내부에 속성이 있는지 확인하기
+        // if(object.name != undefined){
+        //     console.log('name 속성이 있습니다');
+        // } else{
+        //     console.log('name 속성이 없습니다');
+        // }
+        // // 기본속성 지정하기
+        // object.name = object.name !== undefined ? object.name : '제목 미정';
+        // object.author = object.author !== undefined ? object.author : '작가 미정';
+        // // JSON객체로 출력
+        // console.log(JSON.stringify(object, null, 2));
+
+        // // 배열 기반의 다중할당
+        // let [a,b] = [1,2];
+        // console.log(`${a} ${b}`);
+        // [a,b] = [b,a];
+        // console.log(`${a} ${b}`);
+
+        // 객체 기반의 다중 할당
+        const object = {
+            name : '혼공자바',
+            price : 20000,
+            publisher : '한빛'
+        }
+        const {name, publisher} = object;
+        console.log(name, publisher);
+        const{abb = name, bbb = publisher} = object;
+        console.log(abb,bbb);
+    </script>
+</body>
+</html>
