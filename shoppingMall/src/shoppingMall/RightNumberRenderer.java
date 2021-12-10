@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+@SuppressWarnings("serial")
 public class RightNumberRenderer extends DefaultTableCellRenderer {
 
 	private final DecimalFormat formatter = new DecimalFormat("###,###,###,###");

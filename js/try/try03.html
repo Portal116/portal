@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // try{
+        //     const array = new Array(99999999999);
+        //     // 11개의 9배열의 크기 -> 가장 큰 범위인 4,294,967,295보다 크기 때문에 예외 발생
+        // } catch (exception) {
+        //     console.log(exception);
+        //     console.log();
+        //     console.log(`예외이름 : ${exception.name}`);
+        //     console.log(`예외메시지 : ${exception.message}`);
+        // }
+
+        // function divide(a, b) {
+        //     if(b === 0) {
+        //         throw '0으로 나눌 수 없습니다'
+        //     }
+        //     return a/b;
+        // }
+        // console.log(divide(10, 2));
+        // console.log(divide(10, 0));
+
+        // // 강제로 객체의 요소를 추가해서 undefined끼리 연산하게 해서 오류 있는 것 검출
+        // function test2(object) {
+        //     console.log(object.a + object.b);
+        // }
+        // test2({});
+
+        function test3(object) {
+            if(object.a !== undefined && object.b !== undefined){
+                console.log(object.a + object.b);
+            } else {
+                throw new Error('a속성 또는 b속성을 지정하지 않았습니다')
+            }            
+        }
+        
+        try{
+            test3({});
+        } catch (exception){
+            console.log(`${exception.message}`);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -59,13 +59,13 @@ public class MemberPanel {
 	private static JPanel btnPanel_2;
 	private static JPanel btnPanel_3;
 	private static JTextField textFieldSelectCnt;
-	private static JOptionPane dialog = new JOptionPane();
+//	private static JOptionPane dialog = new JOptionPane();
 
 	public MemberPanel() {
 		getPanel();
 	}
 
-	@SuppressWarnings("serial")
+	// 패널들 생성하고 메소드를 호출시 패널 반환
 	public static JPanel getPanel() {
 		if (member == null) {
 			member = new JPanel();
@@ -73,21 +73,23 @@ public class MemberPanel {
 			member.setBounds(0, 100, 1184, 661);
 			member.setLayout(null);
 			model = new DefaultTableModel(null, new String[] { "ID", "이름", "전화번호", "주소" }) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public boolean isCellEditable(int row, int column) {
-					// TODO Auto-generated method stub
 					return false;
 				}
-//				@Override
-//				public Class<?> getColumnClass(int columnIndex) {
-//					if (columnIndex == 0 || columnIndex == 4 || columnIndex == 5)
-//						return Integer.class;
-//					else
-//						return String.class;
-//				}
 			};
 
 			table = new JTable(model) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 					Component component = super.prepareRenderer(renderer, row, column);
@@ -243,7 +245,7 @@ public class MemberPanel {
 			btnUpdate.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setUpdate();
+					updateMember();
 				}
 			});
 
@@ -263,13 +265,13 @@ public class MemberPanel {
 			btnDelete.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			btnDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setDelete();
+					deleteMember();
 				}
 			});
 			btnInsert.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setInsert();
+					insertMember();
 				}
 			});
 
@@ -302,6 +304,7 @@ public class MemberPanel {
 		return member;
 	}
 
+	// 테이블과 입력 부분을 초기화 기능
 	private static void setClear() {
 		textID.setText("");
 		textName.setText("");
@@ -311,7 +314,8 @@ public class MemberPanel {
 		getTable();
 	}
 
-	private static void setInsert() {
+	// 회원 정보를 입력하는 기능
+	private static void insertMember() {
 		String sql = "INSERT INTO membertbl values(?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -328,16 +332,17 @@ public class MemberPanel {
 			String error = "회원 정보를 추가했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (SQLException e1) {
 			String error = "상품 정보를 추가하지 못했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
-	private static void setDelete() {
+	// 회원 정보를 삭제하는 기능
+	private static void deleteMember() {
 		String sql = "DELETE FROM membertbl where id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -350,16 +355,17 @@ public class MemberPanel {
 			String error = "회원 정보를 삭제했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (SQLException e1) {
 			String error = "주문 내역이 있는 회원이라 삭제할 수 없습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
-	private static void setUpdate() {
+	// 회원 정보를 갱신하는 기능
+	private static void updateMember() {
 		String sql = "UPDATE membertbl SET id = ?, name = ?, phonenum = ?, address = ? where id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -377,15 +383,16 @@ public class MemberPanel {
 			String error = "회원 정보를 갱신했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (Exception e1) {
 			String error = "회원 정보를 갱신 하지 못했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
+	// DB에서 데이터를 불러와 테이블로 넣는 기능
 	public static void getTable() {
 		model.setRowCount(0);
 		try {
@@ -406,11 +413,8 @@ public class MemberPanel {
 		}
 	}
 
+	// 회원 정보를 검색하는 기능
 	private static void searchMember(String id, String name, String phoneNum, String address) {
-		System.out.println(id);
-		System.out.println(name);
-		System.out.println(phoneNum);
-		System.out.println(address);
 		String sql = "SELECT * FROM membertbl WHERE ";
 //		String sql = "SELECT * FROM membertbl WHERE id = ? and name = ? and phonenum = ? and address = ?";
 		if (!id.equals("")) {

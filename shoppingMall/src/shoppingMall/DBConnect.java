@@ -12,13 +12,11 @@ public class DBConnect {
 			try {
 				String driver = "com.mysql.cj.jdbc.Driver";
 				String url = "jdbc:mysql://localhost:3306/shopmallmanageDB?useUnicode=true&characterEncoding=utf8";
-//				String url = "jdbc:mysql://localhost:3306/shopmallmanageDB";
 				String user = "root";
 				String pwd = "1234";
 				Class.forName(driver);
 				conn = DriverManager.getConnection(url, user, pwd);
 				System.out.println("Connect");
-
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {

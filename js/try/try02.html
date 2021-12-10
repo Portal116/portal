@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // const h1 = document.querySelector('h1');
+            // // 고급예외처리
+            // try{
+            //     willExcept.byeBye(); // 없는 객체, 메소드
+            //     console.log('try 구문의 밑에 있는 코드 수행되나?');
+            // } catch(exception) {
+            //     console.log('catch 구문임');
+            // }
+
+            function test() {
+                try{
+                    alert('A위치')
+                    throw "예외 강제 발생";
+                } catch (exception) {
+                    alert('B위치');
+                    return;
+                }
+                alert('C위치');
+            }
+            test();
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

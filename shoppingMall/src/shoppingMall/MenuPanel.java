@@ -23,6 +23,7 @@ public class MenuPanel {
 		getPanel();
 	}
 
+	// 패널들 생성하고 메소드를 호출시 패널 반환
 	public static JPanel getPanel() {
 		if (menu == null) {
 			menu = new JPanel();
@@ -53,7 +54,8 @@ public class MenuPanel {
 			});
 
 			RoundedButton btnMember = new RoundedButton("\uBA64\uBC84");
-			btnMember.setToolTipText("<html>입력 칸에 입력값, 입력값  형식으로 입력시 여러 개의 값 검색<br>이름 검색할 때 성씨 검색 방법 김__, 이__, 박__ 과 같이 언더바 2개 사용하여 검색</html>");
+			btnMember.setToolTipText(
+					"<html>입력 칸에 입력값, 입력값  형식으로 입력시 여러 개의 값 검색<br>이름 검색할 때 성씨 검색 방법 김__, 이__, 박__ 과 같이 언더바 2개 사용하여 검색</html>");
 			btnMember.setText("\uD68C\uC6D0");
 			btnMember.setBounds(158, 12, 116, 76);
 			panel.add(btnMember);
@@ -71,7 +73,7 @@ public class MenuPanel {
 			});
 
 			RoundedButton btnOrder = new RoundedButton("\uC8FC\uBB38");
-			btnOrder.setToolTipText("입력 칸에 입력값, 입력값  형식으로 입력시 여러 개의 값 검색");
+			btnOrder.setToolTipText("<html>입력 칸에 입력값, 입력값  형식으로 입력시 여러 개의 값 검색<br>날짜 검색시 월 : -11-, 일 : -__-11 같은 방식으로 가능</html>");
 			btnOrder.setBounds(295, 12, 116, 76);
 			panel.add(btnOrder);
 			btnOrder.setForeground(SystemColor.text);

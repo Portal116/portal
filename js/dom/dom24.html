@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 기본 이벤트 막기
+        // 이미지에서 마우스 오른쪽 버튼을 누르면 나오는 컨텍스트 메뉴
+        document.addEventListener("DOMContentLoaded", () => {
+            const imgs = document.querySelectorAll('img');
+            
+            imgs.forEach((img) => {
+                img.addEventListener('contextmenu', (event) => {
+                    event.preventDefault();
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <img src="../image/펭귄.jpg" alt="펭귄이미지">
+    <img src="../image/산1.jpg" alt="산이미지">
+    <img src="../image/산2.jpg" alt="산이미지">
+</body>
+</html>

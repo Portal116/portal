@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+@SuppressWarnings("serial")
 public class HomePanel extends JPanel {
    private static Connection conn = DBConnect.getConnection();
 
@@ -40,7 +41,7 @@ public class HomePanel extends JPanel {
    public HomePanel() {
       getPanel();
    }
-
+   //패널들 생성하고 메소드를 호출시 패널 반환
    public static JPanel getPanel() {
       if (home == null) {
          home = new JPanel();
@@ -95,7 +96,6 @@ public class HomePanel extends JPanel {
             }
          });
          btnOrder.setFont(new Font("맑은 고딕", Font.PLAIN, 40));
-//         btnOrder.setPreferredSize(new Dimension(200,150));
          btnPanel.add(btnOrder);
 
          RoundedButton btnProduct = new RoundedButton("\uC0C1\uD488");
@@ -177,7 +177,7 @@ public class HomePanel extends JPanel {
       }
       return home;
    }
-
+   //화면 전환시 패널의 가시성 설정
    public static void initVisible(int n) {
       boolean vHome = false;
       boolean vMenu = false;
@@ -220,7 +220,7 @@ public class HomePanel extends JPanel {
       order.setVisible(vOrder);
       product.setVisible(vProduct);
    }
-
+   // 초기화면에서 회원수 표시 기능
    public static void setMemberNo() {
       String sql = "SELECT count(id) FROM membertbl";
       String r = "";
@@ -234,14 +234,13 @@ public class HomePanel extends JPanel {
          if (stmt != null)
             stmt.close();
       } catch (SQLException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
       memNoTextField.setText(r + "명");
       if (memNoTextField != null)
          memNoTextField.repaint();
    }
-
+   // 초기화면에서 이달의 판매금액 표시 기능
    public static void setSales() {
       String sql = "select sum(ordertbl.totalprice) from ordertbl where substr(orderdate,6,7) = ?";
       int r = 0;
@@ -260,7 +259,6 @@ public class HomePanel extends JPanel {
          if (pstmt != null)
             pstmt.close();
       } catch (SQLException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
       textFieldSales.setText(str + "원");

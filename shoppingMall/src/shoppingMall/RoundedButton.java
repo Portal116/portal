@@ -10,6 +10,7 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 class RoundedButton extends JButton {
 	public RoundedButton() {
 		super();

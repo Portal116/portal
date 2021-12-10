@@ -2,7 +2,6 @@ package shoppingmall;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,17 +32,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.UIManager;
 
 public class OrderPanel {
 	private static JPanel order = null;
 	private static Connection con = DBConnect.getConnection();
+	private static PreparedStatement pstmt = null;
+	private static ResultSet rs = null;
 	private static DefaultTableModel model;
 	private static JTable table;
 	private static JTextField textOrderNo;
@@ -51,41 +53,48 @@ public class OrderPanel {
 	private static JTextField textOrderDate;
 	private static JTextField textProductNo;
 	private static JTextField textTotalPrice;
-//	private static String[] col_name = { "주문 번호", "ID", "상품 번호", "수량", "판매 날짜", "판매 가격" };
-	private static PreparedStatement pstmt = null;
-	private static ResultSet rs = null;
 	private static JTextField textSum;
-	private static List<Integer> selectRows = new ArrayList<>();
-	private static StringTokenizer st;
-	private static DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 	private static JTextField textFieldSelectCnt;
-	private static JOptionPane dialog = new JOptionPane();
+//	private static JOptionPane dialog = new JOptionPane();
+	private static List<Integer> selectRows = new ArrayList<>();
+	private static DecimalFormat formatter = new DecimalFormat("###,###,###,###");
+	private static StringTokenizer st;
 
 	public OrderPanel() {
 		getPanel();
 	}
 
+	// 패널들 생성하고 메소드를 호출시 패널 반환
 	public static JPanel getPanel() {
-		// TODO Auto-generated method stub
 		if (order == null) {
 			order = new JPanel();
 			order.setBackground(new Color(255, 0, 0, 0));
 			order.setBounds(0, 100, 1184, 661);
 			model = new DefaultTableModel(null, new String[] { "주문 번호", "ID", "판매 날짜", "상품 번호", "수량", "판매 가격" }) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				public Class<?> getColumnClass(int columnIndex) {
 					if (columnIndex == 0 || columnIndex == 3 || columnIndex == 4 || columnIndex == 5)
 						return Integer.class;
 					else
 						return String.class;
 				}
-
+//				숫자로 취급하기 위해
 				@Override
 				public boolean isCellEditable(int row, int column) {
-					// TODO Auto-generated method stub
 					return false;
 				}
+//				table 더블클릭했을때 수정안되게
 			};
 			table = new JTable(model) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 					Component component = super.prepareRenderer(renderer, row, column);
@@ -95,6 +104,7 @@ public class OrderPanel {
 							Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
 					return component;
 				}
+//				테이블 열 크기 자동 조정
 			};
 
 			table.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
@@ -109,12 +119,13 @@ public class OrderPanel {
 				else
 					table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 			}
+//			우측정렬 및 숫자 , /중앙정렬
 
-//         여러개 선택해서 총 판매액 출력 용도
+			// 여러개 선택해서 총 판매액 출력 용도
 			table.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					int temp = table.getSelectedRow();
+//					int temp = table.getSelectedRow();
 					selectRows.clear();
 					selectRows.addAll(0,
 							Arrays.asList(Arrays.stream(table.getSelectedRows()).boxed().toArray(Integer[]::new)));
@@ -139,8 +150,8 @@ public class OrderPanel {
 				}
 			});
 
+			// 여러개 선택해서 총 판매액 출력 용도
 			table.addMouseListener(new MouseAdapter() {
-//            여러개 선택해서 총 판매액 출력 용도
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					selectRows.clear();
@@ -153,10 +164,9 @@ public class OrderPanel {
 					String sumResult = formatter.format(sum);
 					textSum.setText(sumResult);
 					textFieldSelectCnt.setText(Integer.toString(table.getSelectedRowCount()));
-
 				}
 
-//            클릭할 때 text에 반환
+				// 클릭할 때 text에 반환
 				@Override
 				public void mousePressed(MouseEvent e) {
 					int temp = table.getSelectedRow();
@@ -173,7 +183,7 @@ public class OrderPanel {
 			scrollPane.setBounds(12, 10, 1160, 516);
 			scrollPane.getViewport().setBackground(Color.WHITE);
 			table.setAutoCreateRowSorter(true);
-			TableRowSorter tablesorter = new TableRowSorter(table.getModel());
+			TableRowSorter<TableModel> tablesorter = new TableRowSorter<TableModel>(table.getModel());
 			order.setLayout(null);
 			table.setRowSorter(tablesorter);
 			scrollPane.setViewportView(table);
@@ -229,7 +239,7 @@ public class OrderPanel {
 			textProductNo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			textProductNo.setColumns(10);
 
-			JComboBox comboBoxProductNo = new JComboBox(new String[] { "단일", "포함", "이상", "이하" });
+			JComboBox<?> comboBoxProductNo = new JComboBox<Object>(new String[] { "단일", "포함", "이상", "이하" });
 			comboBoxProductNo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			comboBoxProductNo.setBackground(new Color(255, 255, 255));
 			infoPanel_2.add(comboBoxProductNo);
@@ -241,7 +251,7 @@ public class OrderPanel {
 			infoPanel_2.add(textOrderAmount);
 			textOrderAmount.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			textOrderAmount.setColumns(10);
-			JComboBox comboBoxAmount = new JComboBox(new String[] { "단일", "포함", "이상", "이하" });
+			JComboBox<?> comboBoxAmount = new JComboBox<Object>(new String[] { "단일", "포함", "이상", "이하" });
 			comboBoxAmount.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			comboBoxAmount.setBackground(new Color(255, 255, 255));
 			infoPanel_2.add(comboBoxAmount);
@@ -253,7 +263,7 @@ public class OrderPanel {
 			infoPanel_2.add(textTotalPrice);
 			textTotalPrice.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			textTotalPrice.setColumns(10);
-			JComboBox comboBoxTotal = new JComboBox(new String[] { "단일", "포함", "이상", "이하" });
+			JComboBox<?> comboBoxTotal = new JComboBox<Object>(new String[] { "단일", "포함", "이상", "이하" });
 			comboBoxTotal.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			comboBoxTotal.setBackground(new Color(255, 255, 255));
 			infoPanel_2.add(comboBoxTotal);
@@ -329,13 +339,7 @@ public class OrderPanel {
 			// 주문정보
 			btnClear.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					textOrderNo.setText("");
-					textID.setText("");
-					textProductNo.setText("");
-					textOrderAmount.setText("");
-					textOrderDate.setText("");
-					textTotalPrice.setText("");
-					getTable();
+					setClear();
 				}
 			});
 			// 주문정보 저장하기 - ID, 상품번호, 개수, 주문날짜로 입력 / 주문번호는 AI, 가격은 트리거로 자동
@@ -377,12 +381,23 @@ public class OrderPanel {
 			}
 			JLabel imageLabel = new JLabel(new ImageIcon(image));
 			imageLabel.setBounds(0, -100, 1184, 761);
-//			imageLabel.setPreferredSize(new Dimension(1184, 661));
 			order.add(imageLabel);
 		}
 		return order;
 	}
 
+	// 테이블과 입력 부분을 초기화 기능
+	private static void setClear() {
+		textOrderNo.setText("");
+		textID.setText("");
+		textProductNo.setText("");
+		textOrderAmount.setText("");
+		textOrderDate.setText("");
+		textTotalPrice.setText("");
+		getTable();
+	}
+
+	// DB에서 데이터를 불러와 테이블로 넣는 기능
 	public static void getTable() {
 		model.setRowCount(0);
 		try {
@@ -405,6 +420,7 @@ public class OrderPanel {
 		}
 	}
 
+	// 주문 정보를 갱신하는 기능
 	private static void updateOrder() {
 		try {
 			String sql = "Select amount from producttbl where productNo = ?";
@@ -427,22 +443,23 @@ public class OrderPanel {
 				String error = "주문 정보를 갱신했습니다.";
 				JLabel lblError = new JLabel(error);
 				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-				dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 			} else {
 				String error = "주문 정보를 갱신하지 못했습니다.";
 				JLabel lblError = new JLabel(error);
 				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-				dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 			}
 			getTable();
 		} catch (Exception ex) {
 			String error = "주문 정보를 갱신하지 못했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
+	// 주문 정보를 삭제하는 기능
 	private static void deleteOrder() {
 		String sql = "DELETE FROM ordertbl WHERE orderNo = ?";
 		try {
@@ -454,15 +471,16 @@ public class OrderPanel {
 			String error = "주문 정보를 삭제했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 		} catch (Exception ex) {
 			String error = "주문 정보를 삭제하지 못했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
+	// 주문 정보를 입력하는 기능
 	private static void insertOrder() {
 		try {
 			String sql = "Select amount from producttbl where productNo = ?";
@@ -483,22 +501,23 @@ public class OrderPanel {
 				String error = "주문 정보를 추가했습니다.";
 				JLabel lblError = new JLabel(error);
 				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-				dialog.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, lblError, "Successful", JOptionPane.PLAIN_MESSAGE);
 			} else {
 				String error = "주문량이 재고보다 많습니다.";
 				JLabel lblError = new JLabel(error);
 				lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-				dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 			}
 			getTable();
 		} catch (Exception ex) {
 			String error = "주문 정보를 추가하지 못했습니다.";
 			JLabel lblError = new JLabel(error);
 			lblError.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			dialog.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, lblError, "Error", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
+	// 주문 정보를 검색하는 기능
 	private static void searchOrder(String orderNo, String ID, String productNo, String orderAmount, String orderDate,
 			String totalPrice, int comboProductNo, int comboOrderAmount, int comboTotalPrice) {
 		String sql = "SELECT * FROM ordertbl WHERE ";

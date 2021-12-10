@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // cm를 여러 단위로 바꾸는 프로그램
+        document.addEventListener('DOMContentLoaded', () => {
+            const select = document.querySelector('select');
+            const input = document.querySelector('input');
+            const span = document.querySelector('span');
+
+            let currentValue; // 현재값
+            let changeValue = select.options[0].value; // 변환 상수
+
+            const calculate = () => {
+                span.textContent = (currentValue * changeValue).toFixed(2);
+            };
+
+            select.addEventListener('change', (event) => {
+                const options = event.currentTarget.options;
+                const index = options.selectedIndex;
+
+                changeValue = Number(options[index].value);
+                calculate();
+            });
+            input.addEventListener('keyup', (event) => {
+                currentValue = Number(event.currentTarget.value);
+                calculate();
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text"><br>cm를 다음 단위로 바꿈<br>
+    <span></span>
+    <select name="" id="">
+        <option value="10">mm</option>
+        <option value="0.01">m</option>
+        <option value="0.33701">inch</option>
+    </select>
+</body>
+</html>
