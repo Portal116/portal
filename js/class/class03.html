@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Rectangle{
+            constructor(width, height){
+                this.width = width;
+                this.height = height;
+            }
+            // 둘레 함수
+            getPerimeter(){
+                return 2 * (this.height + this.width);
+            }
+            // 넓이 함수
+            getArea(){
+                return this.height * this.width;
+            }
+        }
+        class Square extends Rectangle{
+            constructor(length){
+                super(length, length);
+            }
+        }
+
+        // class Square{
+        //     constructor(length){
+        //         this.length = length;
+        //     }
+
+        //     // 둘레 함수
+        //     getPerimeter(){
+        //         return 4 * this.length;
+        //     }
+        //     // 넓이 함수
+        //     getArea(){
+        //         return this.length * this.length;
+        //     }
+        // }
+        
+        const rectangle = new Rectangle(10, 20);
+        console.log(`사각형 둘레 : ${rectangle.getPerimeter()}`);
+        console.log(`사각형 둘레 : ${rectangle.getArea()}`);
+
+        const square = new Square(10);
+        console.log(`정사각형 둘레 : ${square.getPerimeter()}`);
+        console.log(`정사각형 둘레 : ${square.getArea()}`);
+    </script>
+</body>
+</html>

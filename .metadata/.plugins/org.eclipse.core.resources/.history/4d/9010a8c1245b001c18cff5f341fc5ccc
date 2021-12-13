@@ -1,0 +1,20 @@
+
+public class Test {
+	public static void main(String[] args) {
+		
+	}
+}
+class Armor{
+	private String name;
+	private int height;
+	
+	Armor(){
+		name ="mark0";
+		height = 200;
+	}
+	
+	Armor(String name, int height){
+		this.name = name;
+		this.height = height;
+	}
+}

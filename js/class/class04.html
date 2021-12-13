@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Square{
+            #length;    // 해당 속성을 사용하겠다고 선언, #은 private
+            constructor(length){
+                if(length < 0){
+                    throw '길이가 0보다 작습니다';
+                } else {
+                    this.#length = length;
+                }
+            }
+
+            // 둘레 함수
+            getPerimeter(){
+                return 4 * this.#length;
+            }
+            // 넓이 함수
+            getArea(){
+                this.#getInner();
+                return this.#length * this.#length;
+            }
+            #getInner(){
+                console.log('내부 메소드');
+            }
+        }
+
+        const square = new Square(10);
+        square.length = -10;
+        // square.length 는 클래스의 #length를 가르키는게 아님. 외부에 #length 접근 못하게 막음
+        console.log(`정사각형 둘레 : ${square.getPerimeter()}`);
+        console.log(`정사각형 둘레 : ${square.getArea()}`);
+        // console.log(`내부에 있는 함수 호출 : ${square.#getInner()}`);
+    </script>
+</body>
+</html>

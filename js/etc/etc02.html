@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 심볼자료형
+        let id1 = Symbol();
+        let id2 = Symbol("id");
+        let id3 = Symbol("id");
+
+        console.log(id2 == id3);
+        console.log(id2.toString());
+        console.log(id2.description);
+        id3 = String(id2);
+        console.log(id2 == id3);
+    </script>
+</body>
+</html>
