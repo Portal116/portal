@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('tr:odd').css('background', 'red');
+            $('tr:even').css('background', 'blue');
+            $('tr:first').css('background', 'pink');
+        });
+        
+    </script>
+</head>
+<body>
+    <table>
+        <tr><td>이름</td><td>혈액형</td><td>지역</td></tr>
+        <tr><td>이름1</td><td>A형</td><td>서울</td></tr>
+        <tr><td>이름2</td><td>B형</td><td>경기</td></tr>
+        <tr><td>이름3</td><td>O형</td><td>서울</td></tr>
+        <tr><td>이름4</td><td>AB형</td><td>경기</td></tr>
+        <tr><td>이름5</td><td>O형</td><td>서울</td></tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 변수를 선언합니다.
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            // 이벤트를 연결합니다.
+            $(canvas).on({
+                mousedown: function (event) {
+                    // 위치를 얻어냅니다.
+                    var position = $(this).offset();
+                    var x = event.pageX - position.left;
+                    var y = event.pageY - position.top;
+
+                    // 여기를 주석 처리하면 클릭으로 연속선
+                    // 살려놓으면 드래그로 선 그리기
+                    // 선을 그립니다.
+                    context.beginPath();
+                    context.moveTo(x, y);
+                },
+                mouseup: function (event) {
+                    // 위치를 얻어냅니다.
+                    var position = $(this).offset();
+                    var x = event.pageX - position.left;
+                    var y = event.pageY - position.top;
+
+                    // 선을 그립니다.
+                    context.lineTo(x, y);
+                    context.stroke();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="700" height="400" style="border: 3px solid black">
+
+    </canvas>
+</body>
+</html>

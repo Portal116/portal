@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var object = {};
+            object.name = 'AA';
+            object.gender = "남자";
+            object.part = "컴퓨터부";
+
+            // $.extend() 메소드를 사용하여 객체 추가
+            $.extend(object, {
+                age : 30,
+                city : "서울"
+            });
+
+            // 출력하기
+            var output = '';
+            $.each(object, function(index, item){
+                output += index + " : " + item + "\n";
+            });
+            alert(output);
+        });        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

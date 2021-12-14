@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('input[type=text]').val('Hello jQuery!!');
+            setTimeout(function(){
+                let sVal = $('select > option:selected').val();    
+                alert(sVal);
+            }, 5000);
+        });
+        
+    </script>
+</head>
+<body>
+    <input type="text">
+    <input type="password">
+    <input type="radio">
+    <input type="checkbox">
+    <input type="file">
+    <select name="" id="">
+        <option value="사과1">사과1</option>
+        <option value="사과2">사과2</option>
+        <option value="사과3">사과3</option>
+        <option value="사과4">사과4</option>
+    </select>
+</body>
+</html>
