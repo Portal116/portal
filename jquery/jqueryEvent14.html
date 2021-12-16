@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#all-check').change(function () {
+                if (this.checked) {
+                    $('#check-item').children().prop('checked', true);
+                } else {
+                    $('#check-item').children().prop('checked', false);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="checkbox" id="all-check" />
+    <label>All</label>
+    <div id="check-item">
+        <input type="checkbox"><label>A Option</label>
+        <input type="checkbox"><label>B Option</label>
+        <input type="checkbox"><label>C Option</label>
+        <input type="checkbox"><label>C Option</label>
+    </div>
+</body>
+</html>

@@ -153,7 +153,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\Users\portal\내 드라이브\멀티캠퍼스\KDT 자료\java study\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\portal\내 드라이브\멀티캠퍼스\KDT 자료\java study\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\htmlEx01" path="/htmlEx01" reloadable="true" source="org.eclipse.jst.jee.server:htmlEx01"/></Host>
+      <Context docBase="D:\Study\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\Study\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ajaxEx" path="/ajaxEx" reloadable="true" source="org.eclipse.jst.jee.server:ajaxEx"/><Context docBase="D:\Study\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jQueryAjaxEx" path="/jQueryAjaxEx" reloadable="true" source="org.eclipse.jst.jee.server:jQueryAjaxEx"/></Host>
     </Engine>
   </Service>
 </Server>

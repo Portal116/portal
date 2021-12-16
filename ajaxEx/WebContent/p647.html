@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p647</title>
+<script>
+	window.onload = function() {
+		// 1단계 : 객체 생성
+		var req = new XMLHttpRequest();
+
+		// 2단계 : 통신할 때 처리할 핸들러 함수를 구현
+		var jsonObj;		
+		req.addEventListener("load", function() {
+			// jsonObj = JSON.parse(req.responseText);
+			jsonObj = req.response;
+			alert(jsonObj);
+		}, false);
+
+		// 3단계 : 요청을 전송하고 통신 시작
+		
+		req.responseType = "json";
+		alert(jsonObj);
+		req.open("GET", "data.txt", true);
+		req.send(null);
+	}
+</script>
+</head>
+<body>
+	<p id="view"></p>
+</body>
+</html>

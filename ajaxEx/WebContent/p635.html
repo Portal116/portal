@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>p635</title>
+<script>
+	window.onload = function() {
+		// 1단계 : 객체 생성
+		var req = new XMLHttpRequest();
+		// 2단계 : 통신할 때 처리할 핸들러 함수를 구현
+		req.onreadystatechange = function() {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					// document.getElementById("view").innerHTML = req.responseText;
+					document.getElementById("view").innerHTML = "서버쪽에서 클라이언트에게 보내는 에러 메시지";
+				}
+			}
+		};
+		// 3단계 : 요청을 전송하고 통신 시작
+		req.open("GET", "data.txt");
+		req.send(null);
+	}
+</script>
+</head>
+<body>
+	<p id="view"></p>
+</body>
+</html>
