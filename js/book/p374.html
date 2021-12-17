@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // var person = {name: "Tom"};
+        // // 확장 방지 -> 추가 불가
+        // Object.preventExtensions(person);
+        // person.age = 17;
+        // console.log("age" in person);
+
+        // var person = {name: "Tom"};
+        // // 밀봉 -> 추가, 삭제, 수정 불가
+        // Object.seal(person);
+        // person.age = 17;
+        // delete person.name;
+        // // Object.defineProperty(person, "name",{enumerable:false});
+        // console.log("name" in person);
+        // console.log("age" in person);
+        // console.log(Object.getOwnPropertyDescriptor(person, "name"));
+        // person.name = "Huck"; // 쓰기 -> 성공
+        // console.log(person); // 읽기 -> 성공
+
+        var person = {name: "Tom"};
+        // 밀봉 -> 추가, 삭제, 수정, 쓰기 불가
+        Object.freeze(person);
+        person.age = 17;
+        delete person.name;
+        // Object.defineProperty(person, "name",{enumerable:false});
+        person.name = "Huck";
+        console.log("name" in person);
+        console.log("age" in person);
+        console.log(Object.getOwnPropertyDescriptor(person, "name"));
+        // console.log(person); // 읽기 -> 성공
+    </script>
+</head>
+
+<body>
+    
+</body>
+
+</html>
