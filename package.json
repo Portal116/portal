@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Portal116/portal/issues"
   },
-  "homepage": "https://github.com/Portal116/portal#readme"
+  "homepage": "https://github.com/Portal116/portal#readme",
+  "devDependencies": {
+    "portal": "^0.3.104"
+  }
 }

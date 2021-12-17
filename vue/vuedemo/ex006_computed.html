@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <!--
+        computed : 복잡한 연산을 사용할 때는 computed 속성을 이용해서 정의한다.
+                   중복제거에 용이하다.
+                   
+        methods속성에 저장된 메소드는 호출할때 마다 계산이된다.
+        computed속성은 한번만 계산이 된다.
+    -->
+    <div id='app'>
+        <!-- <button v-on:click='changeMessage'>Click</button> -->
+        <p>원본 메세지 : {{message}}</p>
+        <p>역순 메세지 : {{reverseChangeMessage()}}</p>
+        <p>역순 메세지 : {{reverseChangeMessage()}}</p>
+        <p>역순 메세지 : {{reverseChangeMessage()}}</p>
+        <hr />
+        <p>역순 메세지 : {{reverseChangeMessage2}}</p>
+        <p>역순 메세지 : {{reverseChangeMessage2}}</p>
+        <p>역순 메세지 : {{reverseChangeMessage2}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: '안녕하세요.'
+            },
+            methods: {
+                reverseChangeMessage() {
+                    console.log('method');
+                    return this.message.split('').reverse().join('');
+                }
+            },
+            computed: {
+                reverseChangeMessage2() {
+                    console.log('computed');
+                    return this.message.split('').reverse().join('');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

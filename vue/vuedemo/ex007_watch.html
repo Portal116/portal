@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+  <!--
+        watch 속성은 Vue 인스턴스의 데이터 변경을 관찰하고 이에 반응한다.
+    -->
+  <div id='app'>
+    <p>{{message}}</p>
+    <button v-on:click='changeMessage'>Click</button>
+    <p>{{updated}}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: '너니?',
+        updated: '아니'
+      },
+      methods: {
+        changeMessage() {
+          this.message = '그래';
+          console.log('change');
+        }
+      },
+      watch: {
+        message(newVal, oldVal) {
+          console.log(newVal, oldVal);
+          this.updated = '네';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+     <!-- 
+     1.  조건에 따라 HTML이 나타났다 사라집니다. 
+         v-if는 조건에 따라 컴포넌트가 실제로 제거되고 생성됩니다.
+         
+     2.  형식)
+          <태그명 v-if="조건">조건이 true이면 표시됩니다.</태그명>
+        -->
+    <div id='app'>
+       <button @click='toggleShow'>Toggle</button>
+       <div v-if='show'>Toggle Show</div>
+    </div>
+
+    <script>
+      new Vue({
+          el:'#app',
+          data:{
+                show:true
+          },
+          methods:{
+              toggleShow(){
+                  this.show = !this.show;
+              }
+          }
+      });
+    </script>
+</body>
+</html>

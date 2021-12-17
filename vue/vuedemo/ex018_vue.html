@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id='app_1'>
+        <p> {{name}} </p>
+        <button @click='changeText'> Click </button>
+    </div>
+
+    <div id='app_2'>
+        <p> {{name}} </p>
+        <button @click='changeText'> Click </button>
+    </div>
+
+    <script>
+        new Vue({
+            el:'#app_1',
+            data:{
+                name:'홍길동'
+            },
+            methods:{
+                changeText(){
+                    this.name='Hong Gil Dong';
+                }
+            }
+        });
+
+        new Vue({
+            el:'#app_2',
+            data:{
+                name:'정해인'
+            },
+            methods:{
+                changeText(){
+                    this.name='Jung Hae In';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+   <div id='app'>
+    <button @click='downCount'>할인</button>
+     <dl>
+         <template v-for='data in fruit'>
+            <dt> {{data.item}}</dt>
+            <dl> 정가 : {{data.price}}</dl>
+            <dl v-show='show'> 할인가 : {{data.sale}}</dl>
+        </template>
+     </dl>
+   </div> 
+  
+   <script>
+      new Vue({
+          el:'#app',
+          data:{
+              show:false,  
+              fruit:[
+                  {item:'사과', price:4000, sale:3000},
+                  {item:'메론', price:3000, sale:2000},
+                  {item:'딸기', price:5000, sale:4000} ] 
+          },
+          methods:{
+             downCount(){
+                this.show = true
+             }
+          }
+      });
+   </script>
+</body>
+</html>

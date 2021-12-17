@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!--
+        컴포넌트(component) : 
+         - 조합하여 화면을 구성할 수 있는 블록(화면의 특정 영역)을 의미한다.
+         -웹을 구성하는 로고, 메뉴바, 버튼, 모달창등 웹 페이지 내의 다양한 UI요소
+         -재사용 가능하도록 구조화 한 것
+        
+        컴포넌트 등록
+        1. 전역등록 : Vue.component('컴포넌트이름', {});
+        2. 지역등록 : new Vue({ component:{'컴포넌트이름':컴포넌트 내용}});
+    -->
+
+    <div id='app_1'>
+        <my-button></my-button>
+    </div>
+
+    <div id='app_2'>
+
+    </div>
+
+    <script>
+         const HelloWorld ={
+            template:`<div>Hello World</div>`
+            };
+
+
+        const MyButton = {
+            components:{
+                'hello-world' :HelloWorld
+            },
+            template: `
+               <div>
+                  <p>{{name}}</p>
+                  <hello-world></hello-world>
+                  <button @click='changeText'>Click</button>
+                </div>
+            `,
+            data(){
+                return{
+                    name:'홍길동'
+                }
+            },
+            methods:{
+                changeText(){
+                    this.name='Hong Gil Dong';
+                }
+            }
+        };
+
+       const app_1 =  new Vue({
+            el:'#app_1',
+            components :{
+                'my-button': MyButton
+            }
+        });
+
+    //    const app_2 =  new Vue({
+    //         el:'#app_2',
+    //         components : {
+              
+    //         }
+    //     });
+    </script>
+</body>
+</html>

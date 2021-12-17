@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .font-size {
+            font-size: 40px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id='app'>
+        <div class='red font-size'>Hello</div>
+        <div v-bind:class='[myRed, mySize]'>Hello</div>
+        <button v-on:click='update'>Update</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                myRed: 'red',
+                mySize: 'font-size'
+
+            },
+            methods: {
+                update() {
+                    this.isRed = !this.isRed;
+                    this.isSize = !this.isSize;
+                }
+
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

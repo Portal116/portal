@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id='app'>
+        <p>{{num}}</p>
+      <!-- 
+        <p><button v-on:click='message'>Click Alert</button></p>
+        <p><button v-on:click='plus'>Plus</button></p>
+        <p><button v-on:click='minus'>Minus</button></p>
+        <form v-on:submit.prevent='submit'>
+            <p><input type='text' /></p>
+            <button type='submit'>Submit</button>
+        </form>
+        -->
+
+        
+
+        <!--이벤트를 바인딩할때는 @로 사용 가능하다.-->
+        <p><button @click='message'>Click Alert</button></p>
+        <p><button @click='plus'>Plus</button></p>
+        <p><button @click='minus'>Minus</button></p>
+        <form @submit.prevent='submit'>
+            <p><input type='text' /></p>
+            <button type='submit'>Submit</button>
+        </form>
+    </div>
+
+    <script>
+      new Vue({
+          el:'#app',
+          data:{
+             num:30
+          },
+          methods:{
+            //  message:function(){
+            //      alert('hi');
+            //  }
+            // plus:function(){
+            //  this.num++;
+            // },
+
+            message(){
+                alert('hello');
+            },
+            plus(){
+                this.num++
+            },
+            minus(){
+                this.num--;
+            },
+            submit(){
+                alert('submitted');                
+            }
+          }
+      });
+    </script>
+</body>
+</html>

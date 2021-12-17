@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!--
+     v-show : 단순히 css 의 display 속성만 변경됩니다.
+     state 에 따라 보여졌다 안보여졌다하는 빈도가 많다면 v-show 를 사용합니다.
+     v-if 의 경우 태그를 그렸다 지웠다 해야되기 때문에 브라우저가 많은 부담을 느낍니다. 
+     하지만 이런 경우를 제외한다면 v-if 를 이용하면 됩니다.
+    -->
+    <div id='app'>
+      <button @click='toggle'>Toggle</button>
+      <div v-show='show'>Message</div>
+    </div>
+
+    <script>
+       new Vue({
+           el:'#app',
+           data:{
+               show:false
+           },
+           methods:{
+               toggle(){
+                   this.show = !this.show;
+               }
+           }
+       });
+    </script>
+</body>
+</html>

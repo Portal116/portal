@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!--
+    v-else 디렉티브를 사용하여 v-if에 대한 "else 블록"을 나타낼 수 있습니다.
+    v-else 엘리먼트는 반드시 v-if 엘리먼트나 v-else-if 엘리먼트 바로 뒤에 와야 합니다. 
+    그렇지 않으면 인식되지 않습니다
+    -->
+     <div id='app'>
+       <button @click='increaseNumber'>Increase</button>
+       <!--template: 여러 태그를 묶어서 보이게 설정 -->
+       <template v-if='show'>
+           <div>1</div>
+           <div>2</div>
+           <div>3</div>
+       </template>
+       <div v-else>No</div>
+     </div>
+
+     <script>
+         new Vue({
+          el:'#app',
+          data:{
+                show:true
+          },
+          methods:{
+            increaseNumber(){
+                  this.show = !this.show;
+              }
+          }
+      });
+     </script>
+</body>
+</html>
