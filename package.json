@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Portal116/portal#readme",
   "devDependencies": {
     "portal": "^0.3.104"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.3"
   }
 }
