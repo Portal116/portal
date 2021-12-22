@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <script>
+        function idCheck() {
+            let id = document.getElementById("id");
+
+            if (id.value === 'admin') {
+                alert('중복된 아이디입니다.')
+            } else if (id.value == '') {
+                alert('아이디를 입력해주세요')
+            } else {
+                alert('사용가능합니다')
+            }
+        }
+        function changeEmail() {
+            let email_2 = document.getElementById("email_2");
+            let email_3 = document.getElementById("email_3");
+            let index = email_3.options.selectedIndex;
+            let emailValue = email_3.options[index].value;
+            email_2.value = emailValue;
+        }
+        function searchAddress() {
+
+        }
+        function historyBack() {
+            history.back();
+        }
+        function registerCheck() {
+            let id = document.getElementById("id");
+            let pwd = document.getElementById("password")
+            let rePwd = document.getElementById("rePassword")
+            let mobile = document.getElementById("mobile")
+
+            let idReq = /^(?=.*[a-z0-9]).{6,10}$/;
+            let pwReq = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*+=])(?=.*[0-9]).{8,24}$/;
+            let telReq = /^(?=.*[0-9]).{11}$/
+            if (!(idReq.test(id.value))) {
+                alert('6~10자의 영문 소문자, 숫자의 조합으로 입력해주세요')
+                event.preventDefault();
+                id.focus();
+                return false;
+            }
+            if (!(pwReq.test(pwd.value))) {
+                alert('8~24자의 영문 대소문자, 숫자 또는 특수문자의 조합으로 입력해주세요')
+                event.preventDefault();
+                pwd.focus();
+                return false;
+            }
+            if (pwd.value !== rePwd.value) {
+                alert('입력된 비밀번호가 서로 다릅니다.')
+                event.preventDefault();
+                rePwd.focus();
+                return false;
+            }
+            if (!(telReq.test(mobile.value))) {
+                alert('전화번호에 -를 제외한 11자리만 입력해 주세요.')
+                event.preventDefault();
+                mobile.focus();
+                return false;
+            }
+            document.member.submit();
+        }
+    </script>
+    <style>
+        .register {
+            background-color: beige;
+            width: 60%;
+            padding: 20px 20px;
+        }
+
+        td {
+            padding: 3px 20px;
+        }
+
+        input {
+            width: 100px;
+        }
+
+        .longInput {
+            width: 335px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>회원가입</h1>
+    <div class="register">
+        <form action="success.html" name="register" method="post">
+            <table>
+                <tr>
+                    <td>아이디</td>
+                    <td><input type="text" name="id" id="id" placeholder="띄어쓰기 없이 영/숫자 6~10자" style="width: 255px;"
+                            required>
+                        <button type="button" onclick="idCheck()">중복 확인</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td><input type="password" name="password" id="password" placeholder="8~24자의 영문 대소문자, 숫자 또는 특수문자 조합"
+                            class="longInput" required></td>
+                </tr>
+                <tr>
+                    <td>비밀번호 재확인</td>
+                    <td><input type="password" name="rePassword" id="rePassword" placeholder="위의 비밀번호를 다시 입력해주세요."
+                            class="longInput" required></td>
+                </tr>
+                <tr>
+                    <td>이름</td>
+                    <td><input type="text" name="username" id="username" required></td>
+                </tr>
+                <tr>
+                    <td>생년월일</td>
+                    <td><input type="text" name="birthYear" placeholder="출생년도(4자리)">
+                        <select name="birthMonth" id="birthMonth">
+                            <option value="월">월</option>
+                            <option value="1">1월</option>
+                            <option value="2">2월</option>
+                            <option value="3">3월</option>
+                            <option value="4">4월</option>
+                            <option value="5">5월</option>
+                            <option value="6">6월</option>
+                            <option value="7">7월</option>
+                            <option value="8">8월</option>
+                            <option value="9">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                        <select name="birthDay" id="birthDay">
+                            <option value="일">일</option>
+                            <option value="1">1일</option>
+                            <option value="2">2일</option>
+                            <option value="3">3일</option>
+                            <option value="4">4일</option>
+                            <option value="5">5일</option>
+                            <option value="6">6일</option>
+                            <option value="7">7일</option>
+                            <option value="8">8일</option>
+                            <option value="9">9일</option>
+                            <option value="10">10일</option>
+                            <option value="11">11일</option>
+                            <option value="12">12일</option>
+                            <option value="13">13일</option>
+                            <option value="14">14일</option>
+                            <option value="15">15일</option>
+                            <option value="16">16일</option>
+                            <option value="17">17일</option>
+                            <option value="18">18일</option>
+                            <option value="19">19일</option>
+                            <option value="20">20일</option>
+                            <option value="21">21일</option>
+                            <option value="22">22일</option>
+                            <option value="23">23일</option>
+                            <option value="24">24일</option>
+                            <option value="25">25일</option>
+                            <option value="26">26일</option>
+                            <option value="27">27일</option>
+                            <option value="28">28일</option>
+                            <option value="29">29일</option>
+                            <option value="30">30일</option>
+                            <option value="31">31일</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td><input type="radio" value="M" name="gender" id="male" style="width: auto;" required>남자
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" value="F" name="gender" id="female" style="width: auto;" required>여자
+                    </td>
+                </tr>
+                <tr>
+                    <td>전화번호</td>
+                    <td><input type="text" name="mobile" id="mobile" placeholder="-없이 숫자만" required></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><input type="text" name="email_1" id="email_1">
+                        @
+                        <input type="text" name="email_2" id="email_2">
+                        <select name="email_3" id="email_3" onchange="changeEmail()">
+                            <option value="">직접입력</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="hanmail.net">hanmail.net</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>우편번호</td>
+                    <td><input type="text" name="addr" id="addr">
+                        <button type="button" onclick="searchAddress()">검색</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기본주소</td>
+                    <td><input type="text" name="base_addr" id="base_addr" class="longInput"></td>
+                </tr>
+                <tr>
+                    <td>상세주소</td>
+                    <td><input type="text" name="detail_addr" id="detail_addr" class="longInput"></td>
+                </tr>
+                <tr>
+                    <td>약관동의</td>
+                    <td><input type="checkbox" value="Y" name="agree" id="agree" style="width: auto;" required>귀하의 쇼핑몰에
+                        회원으로
+                        가입합니다.</td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button type="button" onclick="historyBack()">이전 페이지로</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button type="submit" onclick="registerCheck()">회원가입</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

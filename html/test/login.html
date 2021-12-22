@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <script>
+        function login() {
+            const id = document.querySelector("#id");
+            const pw = document.querySelector("#pw");
+            if (id.value === 'admin' && pw.value === '1234') {
+                alert('로그인 되었습니다.')
+            } else if (id.value == '' || pw.value == '') {
+                alert('입력되지 않은 칸이 있습니다.')
+                event.preventDefault();
+            } else if (id.value === 'admin') {
+                alert('비밀번호가 틀렸습니다.')
+                event.preventDefault();
+            } else {
+                alert('아이디가 틀렸습니다.')
+                event.preventDefault();
+            }
+        }
+    </script>
+    <style>
+        .login {
+            text-align: center;
+            margin: 100px auto;
+            padding: 20px 20px;
+            border: 1px black solid;
+            width: 30%;
+
+        }
+
+        #id {
+            margin: 5px;
+            width: 200px;
+            font-size: 150%;
+        }
+
+        #pw {
+            margin: 5px;
+            width: 200px;
+            font-size: 150%;
+        }
+
+        .button {
+            background-color: #0051ba;
+            border-radius: 4px;
+            border: none;
+            color: white;
+            text-decoration: none;
+            padding: 0px 5px;
+            width: 100px;
+            font-size: 20px;
+            margin: 5px 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <form action="success.html" method="post">
+            <input type="text" for="id" name="id" id="id" placeholder="아이디">
+            <br>
+            <input type="password" for="password" name="password" id="pw" placeholder="비밀번호">
+            <br>
+            <input class="button" type="submit" value="로그인" onclick="login()">
+            <input class="button" type="button" value="회원가입" onclick="location.href = 'register.html'">
+        </form>
+    </div>
+</body>
+
+</html>
