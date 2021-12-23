@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 화면</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .main {
+            width: 900px;
+            padding: 50px 50px;
+        }
+
+        #logo {
+            float: left;
+            font-size: 200%;
+        }
+
+        #buttons {
+            float: right;
+            font-size: 200%;
+        }
+
+        .button {
+            background-color: #0051ba;
+            border-radius: 4px;
+            border: none;
+            color: white;
+            text-decoration: none;
+            padding: 0px 5px;
+            width: 100px;
+            font-size: 20px;
+            margin: 5px 2px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            let array = [
+                { name: '로그인', link: 'login.html' },
+                { name: '회원가입', link: 'register.html' },
+                { name: '고객센터', link: 'customerService.html' }
+            ];
+            $.each(array, function (index, item) {
+                let output = '';
+                output += '<input class="button" type="button" value="';
+                output += item.name + '" onclick="location.href = `';
+                output += item.link + '`">';
+
+                document.getElementById('buttons').innerHTML += output
+            });
+        });        
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <div id="logo">Main</div>
+            <div id="buttons">
+
+            </div>
+        </div>
+        <div class="content">
+            <img src="" alt="">
+        </div>
+    </div>
+
+</body>
+
+</html>

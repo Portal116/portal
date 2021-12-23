@@ -23,6 +23,9 @@
                 event.preventDefault();
             }
         }
+        function historyBack() {
+            history.back();
+        }
     </script>
     <style>
         .login {
@@ -30,7 +33,7 @@
             margin: 100px auto;
             padding: 20px 20px;
             border: 1px black solid;
-            width: 30%;
+            width: 300px;
 
         }
 
@@ -62,13 +65,16 @@
 
 <body>
     <div class="login">
+        <h2>로그인</h2>
         <form action="success.html" method="post">
             <input type="text" for="id" name="id" id="id" placeholder="아이디">
             <br>
             <input type="password" for="password" name="password" id="pw" placeholder="비밀번호">
             <br>
             <input class="button" type="submit" value="로그인" onclick="login()">
-            <input class="button" type="button" value="회원가입" onclick="location.href = 'register.html'">
+            <input class="button" type="button" value="취소" onclick="historyBack()">
+            <br>
+            <input class="button" type="button" value="회원가입" onclick="location.href = 'register.html'">            
         </form>
     </div>
 </body>
