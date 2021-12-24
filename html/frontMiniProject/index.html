@@ -11,6 +11,7 @@
         .main {
             width: 900px;
             padding: 50px 50px;
+            margin: auto;
         }
 
         #logo {
@@ -34,6 +35,17 @@
             font-size: 20px;
             margin: 5px 2px;
         }
+        .clear{
+            clear: both;
+        }
+        .banner{
+            margin: 30px 0;
+        }
+        .content{
+            width: 100%;
+            text-align: center;
+            font-size: 130%;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -50,7 +62,7 @@
 
                 document.getElementById('buttons').innerHTML += output
             });
-        });        
+        });
     </script>
 </head>
 
@@ -62,8 +74,29 @@
 
             </div>
         </div>
-        <div class="content">
-            <img src="" alt="">
+        <div class="clear"></div>
+        <div class="banner">
+            <img src="http://placehold.it/900x450" alt="">
+        </div>
+        <hr>
+        <div>
+            <table class="content">
+                <tr>
+                    <h2>베스트</h2>
+                </tr>
+                <tr>
+                    <td><img src="http://placehold.it/200x200" alt=""></td>
+                    <td><img src="http://placehold.it/200x200" alt=""></td>
+                    <td><img src="http://placehold.it/200x200" alt=""></td>
+                    <td><img src="http://placehold.it/200x200" alt=""></td>
+                </tr>
+                <tr>
+                    <td>상품명</td>
+                    <td>상품명</td>
+                    <td>상품명</td>
+                    <td>상품명</td>
+                </tr>
+            </table>
         </div>
     </div>
 

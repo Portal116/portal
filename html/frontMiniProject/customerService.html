@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>고객센터</title>
     <style>
         .customerService {
             text-align: center;
             margin: 100px auto;
             padding: 20px 20px;
             border: 1px black solid;
-            width: 70%;
+            width: 900px
         }
 
         .csTop {
@@ -36,7 +36,8 @@
             margin-left: auto;
         }
 
-        button {
+        button,
+        .button {
             background-color: #0051ba;
             border-radius: 4px;
             border: none;
@@ -73,10 +74,21 @@
             text-align: left;
             padding: 7px 20px;
         }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
+    <script>
+        function historyBack() {
+            history.back();
+        }
+    </script>
 </head>
 
 <body>
+
     <div class="customerService">
         <div class="csTop">
             <div class="csSearch">
@@ -100,23 +112,23 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="question"><a href="#">[구매] 세금계산서를 발급받고 싶어요.</a></td>
+                        <td class="question"><a href="success.html">[구매] 세금계산서를 발급받고 싶어요.</a></td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td class="question"><a href="#">[구매] 취소/반품했는데, 언제 환불되나요.</a></td>
+                        <td class="question"><a href="success.html">[구매] 취소/반품했는데, 언제 환불되나요.</a></td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td class="question"><a href="#">[구매] 고객센터 이용 시간은 어떻게 되나요.(1:1 상담을 원합니다.)</a></td>
+                        <td class="question"><a href="success.html">[구매] 고객센터 이용 시간은 어떻게 되나요.(1:1 상담을 원합니다.)</a></td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td class="question"><a href="#">[배송] 주문한 상품은 언제 배송되나요?</a></td>
+                        <td class="question"><a href="success.html">[배송] 주문한 상품은 언제 배송되나요?</a></td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td class="question"><a href="#">[구매] 간편회원도 쿠폰을 사용할 수 있나요?</a></td>
+                        <td class="question"><a href="success.html">[구매] 간편회원도 쿠폰을 사용할 수 있나요?</a></td>
                     </tr>
                 </table>
             </div>
@@ -134,29 +146,31 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="notice"><a href="#">
+                        <td class="notice"><a href="success.html">
                                 [공지] 구매이용약관 개정 공지 (2022년 1월 3일 시행)</a></td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td class="notice"><a href="#">[공지] 정기점검으로 인한 서비스 일시중지 - 12월 14일(금)</a></td>
+                        <td class="notice"><a href="success.html">[공지] 정기점검으로 인한 서비스 일시중지 - 12월 14일(금)</a></td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td class="notice"><a href="#">
+                        <td class="notice"><a href="success.html">
                                 환경부 공고, '요소수 판매에 관한 조정명령' (12/8~ )</a></td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td class="notice"><a href="#">[공지] 정기점검으로 인한 서비스 일시중지 - 11월 17일(금)</a></td>
+                        <td class="notice"><a href="success.html">[공지] 정기점검으로 인한 서비스 일시중지 - 11월 17일(금)</a></td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td class="notice"><a href="#">[공지] 정기점검으로 인한 서비스 일시중지 - 10월 26일(금)</a></td>
+                        <td class="notice"><a href="success.html">[공지] 정기점검으로 인한 서비스 일시중지 - 10월 26일(금)</a></td>
                     </tr>
                 </table>
             </div>
         </div>
+        <hr>
+        <input class="button" type="button" value="돌아가기" onclick="historyBack()">
     </div>
 </body>
 
