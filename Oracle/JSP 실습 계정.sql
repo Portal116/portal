@@ -1,3 +1,5 @@
+DROP TABLE t_member;
+
 CREATE TABLE t_member (
     id       VARCHAR2(10) PRIMARY KEY,
     pwd      VARCHAR2(10),
@@ -36,3 +38,11 @@ SELECT
     *
 FROM
     t_member;
+
+SELECT
+    decode(count(*),1,'true','false') as result
+FROM
+    t_member
+WHERE
+    id = 'hong'
+    AND pwd = '1212';
