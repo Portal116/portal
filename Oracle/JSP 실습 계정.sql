@@ -38,11 +38,3 @@ SELECT
     *
 FROM
     t_member;
-
-SELECT
-    decode(count(*),1,'true','false') as result
-FROM
-    t_member
-WHERE
-    id = 'hong'
-    AND pwd = '1212';
