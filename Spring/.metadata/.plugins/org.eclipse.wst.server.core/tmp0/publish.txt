@@ -1,3 +1,4 @@
 #Tomcat publish data
-#Fri Jan 07 11:20:00 KST 2022
-org.eclipse.jst.jee.server\:pro28=D\:\\sts-3.9.11\\pivotal-tc-server\\instances\\serever\\wtpwebapps\\pro28
+#Mon Jan 10 17:32:16 KST 2022
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\portal\\.m2\\repository\\org\\springframework\\spring-web\\4.1.1.RELEASE\\spring-web-4.1.1.RELEASE.jar=D\:\\sts-3.9.11\\pivotal-tc-server\\instances\\serever\\wtpwebapps\\pro29\\WEB-INF\\lib\\spring-web-4.1.1.RELEASE.jar
+org.eclipse.jst.jee.server\:pro29=D\:\\sts-3.9.11\\pivotal-tc-server\\instances\\serever\\wtpwebapps\\pro29

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@Controller
+//@Controller
 public class FileDownloadController {
 	private static String CURR_IMAGE_REPO_PATH = "c:\\spring\\image_repo";
 

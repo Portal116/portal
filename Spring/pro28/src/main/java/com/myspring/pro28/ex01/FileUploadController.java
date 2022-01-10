@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@Controller
+//@Controller
 public class FileUploadController  {
 	private static final String CURR_IMAGE_REPO_PATH = "c:\\spring\\image_repo";
 	
