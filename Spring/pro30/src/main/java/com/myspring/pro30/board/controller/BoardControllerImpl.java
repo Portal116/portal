@@ -86,7 +86,7 @@ public class BoardControllerImpl implements BoardController {
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
 			}
 			message = "<script>";
-			message += " alert('»õ±ÛÀ» Ãß°¡Çß½À´Ï´Ù.');";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/listArticles.do';";
 			message += "</script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -94,7 +94,7 @@ public class BoardControllerImpl implements BoardController {
 			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 			srcFile.delete();
 			message = "<script>";
-			message += " alert('¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä.');";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½.');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/articleForm.do';";
 			message += "</script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -178,7 +178,7 @@ public class BoardControllerImpl implements BoardController {
 				oldFile.delete();
 			}
 			message = "<script>";
-			message += " alert('±ÛÀ» ¼öÁ¤Çß½À´Ï´Ù.');";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/viewArticle.do?articleNO="
 					+ articleNO + "';";
 			message += " </script>";
@@ -187,7 +187,7 @@ public class BoardControllerImpl implements BoardController {
 			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 			srcFile.delete();
 			message = "<script>";
-			message += " alert('¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.´Ù½Ã ¼öÁ¤ÇØÁÖ¼¼¿ä');";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/viewArticle.do?articleNO="
 					+ articleNO + "';";
 			message += " </script>";
@@ -212,14 +212,14 @@ public class BoardControllerImpl implements BoardController {
 			FileUtils.deleteDirectory(destDir);
 
 			message = "<script>";
-			message += " alert('±ÛÀ» »èÁ¦Çß½À´Ï´Ù.');";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.');";
 			message += " location.href='" + request.getContextPath() + "/board/listArticles.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			message = "<script>";
-			message += " alert('ÀÛ¾÷Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä.');";
+			message += " alert('ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½.');";
 			message += " location.href='" + request.getContextPath() + "/board/listArticles.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -228,4 +228,63 @@ public class BoardControllerImpl implements BoardController {
 		return resEnt;
 	}
 
+	@Override
+	@RequestMapping(value = "/board/replyForm.do", method = RequestMethod.POST)
+	public String replyFormAriticle(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		int parentNO = Integer.parseInt(request.getParameter("parentNO"));
+		HttpSession session = request.getSession();
+		session.setAttribute("parentNO", parentNO);
+		return viewName;
+	}
+
+	@Override
+	@RequestMapping(value = "/board/addReply.do", method = RequestMethod.POST)
+	public ResponseEntity replyNewAriticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
+		multipartRequest.setCharacterEncoding("UTF-8");
+		Map<String, Object> articleMap = new HashMap<String, Object>();
+		Enumeration<String> enu = multipartRequest.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String name = enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			articleMap.put(name, value);
+		}
+		String imageFileName = upload(multipartRequest);
+		HttpSession session = multipartRequest.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String id = memberVO.getId();
+		articleMap.put("id", id);
+		articleMap.put("imageFileName", imageFileName);
+
+		int parentNO = Integer.parseInt(session.getAttribute("parentNO").toString());
+		session.removeAttribute("parentNO");
+		articleMap.put("parentNO", parentNO);
+
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+
+		try {
+			int articleNO = boardService.replyNewArticle(articleMap);
+			if (imageFileName != null && imageFileName.length() != 0) {
+				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
+				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNO);
+				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+			}
+			message = "<script>";
+			message += "alert('ë‹µë³€ì„ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤.');";
+			message += "location.href='" + multipartRequest.getContextPath() + "/board/listArticles.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity<String>(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			message = "<script>";
+			message += "alert('ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì‹­ì‹œì˜¤.');";
+			message += "location.href='" + multipartRequest.getContextPath() + "/board/replyForm.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity<String>(message, responseHeaders, HttpStatus.CREATED);
+		}
+		return resEnt;
+	}
 }

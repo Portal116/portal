@@ -49,4 +49,9 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.deleteArticle(articleNO);
 	}
 
+	@Override
+	public int replyNewArticle(Map articleMap) {
+		// TODO Auto-generated method stub
+		return boardDAO.replyArticle(articleMap);
+	}
 }
