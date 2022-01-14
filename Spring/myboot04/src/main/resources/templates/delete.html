@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleeaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="txt/html; charset=UTF-8">
+	<style type="text/css">
+		h1 {
+			font-size: 18pt;
+			font-weight: bold;
+			color: gray;
+		}
+
+		body {
+			font-size: 13pt;
+			color: gray;
+			margin: 5px 25px;
+		}
+
+		tr {
+			margin: 5px;
+		}
+
+		th {
+			padding: 5px;
+			color: white;
+			background: darkgray;
+		}
+
+		td {
+			padding: 5px;
+			color: black;
+			background: #e0ec0f;
+		}
+	</style>
+	<title>delete page</title>
+</head>
+
+<body>
+	<h1 th:text="#{content.title}">Hello page</h1>
+	<table th:each="obj:${datalist}">
+		<form method="post" action="/delete" th:object="${formModel}">
+			<input type="hidden" name="id" th:value="${id}" />
+			<tr>
+				<td>
+					<p th:text="|이름 : ${obj.name}|"></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p th:text="|나이 : ${obj.age}|"></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p th:text="|메일 : ${obj.email}|"></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p th:text="|메모  : ${obj.memo}|"></p>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="삭제"></td>
+			</tr>
+		</form>
+	</table>
+</body>
+
+</html>
