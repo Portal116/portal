@@ -2871,3 +2871,116 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY com.genuitec.eclipse.code.core 1 0 2022-01-17 11:23:54.465
 !MESSAGE CodeMix Engine engine has been started
+!SESSION 2022-01-17 23:27:55.965 -----------------------------------------------
+eclipse.buildId=3.9.11.201912161221-RELEASE-e413
+java.version=1.8.0_202
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
+Framework arguments:  -product org.springsource.sts.ide -product org.springsource.sts.ide
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springsource.sts.ide -data D:\Study\Spring -product org.springsource.sts.ide
+
+!ENTRY org.eclipse.jface 2 0 2022-01-17 23:28:06.423
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-01-17 23:28:06.423
+!MESSAGE A conflict occurred for CTRL+3:
+Binding(CTRL+3,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.override.methods,Override/Implement Methods,
+		Override or implement methods from super types,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@31887330,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,user)
+Binding(CTRL+3,
+	ParameterizedCommand(Command(org.eclipse.wst.jsdt.ui.edit.text.java.override.methods,Override/Implement Functions,
+		Override or implement functions from super types,
+		Category(org.eclipse.wst.jsdt.ui.category.source,Source,JavaScript Source Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@65528bcf,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,user)
+Binding(CTRL+3,
+	ParameterizedCommand(Command(org.eclipse.wst.jsdt.ui.edit.text.java.create.getter.setter,Generate Getters and Setters,
+		Generate Getter and Setter functions for type's vars,
+		Category(org.eclipse.wst.jsdt.ui.category.source,Source,JavaScript Source Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7bb4f09d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,user)
+Binding(CTRL+3,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.create.getter.setter,Generate Getters and Setters,
+		Generate Getter and Setter methods for type's fields,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@ee7a538,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,user)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-01-17 23:28:06.423
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7c045627,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@d79a69b,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-01-17 23:28:06.423
+!MESSAGE A conflict occurred for CTRL+5:
+Binding(CTRL+5,
+	ParameterizedCommand(Command(org.eclipse.wst.jsdt.ui.edit.text.java.generate.constructor.using.fields,Generate Constructor using Vars,
+		Choose vars to initialize and constructor from superclass to call ,
+		Category(org.eclipse.wst.jsdt.ui.category.source,Source,JavaScript Source Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@51158fb1,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,user)
+Binding(CTRL+5,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.generate.constructor.using.fields,Generate Constructor using Fields,
+		Choose fields to initialize and constructor from superclass to call ,
+		Category(org.eclipse.jdt.ui.category.source,Source,Java Source Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@62682ece,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,user)
+
+!ENTRY com.genuitec.eclipse.code.ui 1 0 2022-01-17 23:28:07.929
+!MESSAGE CodeMix Engine will be started momentarily to support development activities
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-01-17 23:28:30.900
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\portal'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.genuitec.eclipse.code.livechat.core 4 0 2022-01-17 23:28:32.136
+!MESSAGE Received status code [404] trying to synchronize thread
+!STACK 0
+java.io.IOException: Received status code [404] trying to synchronize thread
+	at com.genuitec.eclipse.code.livechat.client.LiveChatCometdClient.isAgentAvailable(LiveChatCometdClient.java:926)
+	at com.genuitec.eclipse.code.livechat.core.ThreadService.isAgentAvailable(ThreadService.java:328)
+	at com.genuitec.eclipse.code.livechat.ui.LiveChatHandler.isAgentAvailable(LiveChatHandler.java:51)
+	at com.genuitec.eclipse.code.ui.CodeUI.isLiveChatAgentAvailable(CodeUI.java:692)
+	at com.genuitec.eclipse.code.ui.welcome.CodeWelcomeStartup$8.run(CodeWelcomeStartup.java:677)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.genuitec.eclipse.code.core 1 0 2022-01-17 23:29:27.074
+!MESSAGE Verifying CodeMix Engine runtime integrity...
+
+!ENTRY com.genuitec.eclipse.code.core 1 0 2022-01-17 23:29:27.119
+!MESSAGE IntegrityCheck: Artifacts located at: [D:\sts-3.9.11\sts-3.9.11.RELEASE\artifacts.xml]
+
+!ENTRY com.genuitec.eclipse.code.core 1 0 2022-01-17 23:29:27.168
+!MESSAGE Integrity check PASSED
+
+!ENTRY com.genuitec.eclipse.code.core 1 0 2022-01-17 23:29:28.077
+!MESSAGE CodeMix Engine engine has been started
