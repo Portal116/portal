@@ -1,3 +1,5 @@
 #Tomcat publish data
-#Thu Jan 13 11:18:14 KST 2022
+#Thu Jan 20 13:33:51 KST 2022
+org.eclipse.jst.j2ee.server\:backendProject=D\:\\sts-3.9.11\\pivotal-tc-server\\instances\\serever\\wtpwebapps\\backendProject
+org.eclipse.jst.j2ee.server\:/binary\:C\:\\Users\\portal\\.gradle\\caches\\modules-2\\files-2.1\\org.springframework\\spring-web\\5.3.14\\801d96f3914ace2e347ee3f6d29e21073e4f50ed\\spring-web-5.3.14.jar=D\:\\sts-3.9.11\\pivotal-tc-server\\instances\\serever\\wtpwebapps\\backendProject\\WEB-INF\\lib\\spring-web-5.3.14.jar
 org.eclipse.jst.jee.server\:pro30=D\:\\sts-3.9.11\\pivotal-tc-server\\instances\\serever\\wtpwebapps\\pro30
