@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="true"/>
 		<list key="findhistory">
+			<item value="data"/>
 			<item value="dialog"/>
 			<item value="661"/>
 			<item value="combobox"/>
@@ -22,7 +23,6 @@
 			<item value="formatter"/>
 			<item value="TableFTFEditDemo"/>
 			<item value="binarySearch"/>
-			<item value="la4"/>
 		</list>
 		<list key="replacehistory">
 			<item value="result"/>

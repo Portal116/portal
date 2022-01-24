@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
 <aop-project name="backendProject"/>
-<aop-project name="myboot02"/>
 <aop-project name="myboot04"/>
+<aop-project name="myboot02"/>
 <aop-project name="backendEx"/>
-<aop-project name="pro30"/>
-<aop-project name="pro29"/>
 <aop-project name="pro27"/>
+<aop-project name="pro29"/>
+<aop-project name="pro30"/>
 <aop-project name="pro27_1"/>
 <aop-project name="myboot03"/>
 <aop-project name="myboot01"/>
+<aop-project name="kakaologin"/>
 <aop-project name="bookShop01"/>
 <aop-project name="pro28"/>
 </aop-reference-model>
